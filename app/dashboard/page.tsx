@@ -70,6 +70,9 @@ function DashboardContent() {
     timestamp: number;
   } | null>(null);
 
+  // Sayaç state'i (28 Aralık 2025 00:00)
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
   // Supabase'den veri çek ve istatistikleri hesapla
   useEffect(() => {
     const fetchStats = async () => {
@@ -362,6 +365,29 @@ function DashboardContent() {
     return () => clearInterval(interval);
   }, []);
 
+  // Sayaç mantığı (28 Aralık 2025 00:00)
+  useEffect(() => {
+    const targetDate = new Date("2025-12-28T00:00:00").getTime();
+
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(timer);
+      } else {
+        setTimeLeft({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Zorunlu 3 saniyelik loading ekranı - Sayfa yüklendiğinde başlar
   useEffect(() => {
     setProgress(0); // Reset progress when component mounts
@@ -402,6 +428,9 @@ function DashboardContent() {
   };
 
   const title = getTitle();
+
+  // Sayaç formatı
+  const formatTime = (time: number) => (time < 10 ? `0${time}` : time);
 
   // Custom Tooltip bileşeni (Momentum Grafiği için - Sadeleştirilmiş - Sadece saat)
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -547,6 +576,25 @@ function DashboardContent() {
   return (
     <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-4 lg:px-8 lg:py-8">
       <main className="w-full max-w-7xl flex flex-col items-center gap-4 lg:gap-8">
+        {/* Sayaç (28 Aralık 2025 00:00) */}
+        <div className="mb-4 w-full max-w-md">
+          <div className="relative bg-black/20 backdrop-blur-sm border border-purple-500/20 rounded-full px-6 py-2 text-center shadow-[0_0_20px_rgba(168,85,247,0.1)] flex items-center justify-center gap-4">
+            <h3 className="text-purple-300/70 text-[10px] tracking-[0.2em] uppercase font-bold hidden md:block">
+              BİTİŞE:
+            </h3>
+            
+            <div className="flex items-center gap-2 font-[var(--font-space)] text-lg md:text-xl text-white font-bold tracking-widest">
+              <span className="drop-shadow-md">{formatTime(timeLeft.days)}g</span>
+              <span className="text-purple-500/50">:</span>
+              <span className="drop-shadow-md">{formatTime(timeLeft.hours)}s</span>
+              <span className="text-purple-500/50">:</span>
+              <span className="drop-shadow-md">{formatTime(timeLeft.minutes)}d</span>
+              <span className="text-purple-500/50">:</span>
+              <span className="text-cyan-400 drop-shadow-lg">{formatTime(timeLeft.seconds)}</span>
+            </div>
+          </div>
+        </div>
+
         {/* Başlık */}
         <h1 className="text-3xl md:text-5xl font-black text-center text-white mb-4 drop-shadow-2xl">
           {title.highlight ? (
