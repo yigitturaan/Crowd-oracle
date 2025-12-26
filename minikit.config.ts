@@ -23,9 +23,9 @@ export const minikitConfig = {
   
   miniapp: {
     version: "1",
-    name: "Cubey", 
-    subtitle: "Your AI Ad Companion", 
-    description: "Ads",
+    name: "Crowd Oracle", 
+    subtitle: "Geleceği Tahmin Et", 
+    description: "Topluluk bilgeliğiyle geleceği tahmin et. ETH fiyat tahminleri ve kitle analizi.",
     screenshotUrls: [`${ROOT_URL}/screenshot-portrait.png`],
     iconUrl: `${ROOT_URL}/blue-icon.png`,
     splashImageUrl: `${ROOT_URL}/blue-hero.png`,
@@ -33,11 +33,11 @@ export const minikitConfig = {
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "social",
-    tags: ["marketing", "ads", "quickstart", "waitlist"],
+    tags: ["prediction", "crypto", "ethereum", "crowd", "oracle"],
     heroImageUrl: `${ROOT_URL}/blue-hero.png`, 
-    tagline: "",
-    ogTitle: "",
-    ogDescription: "",
+    tagline: "Geleceği Görebiliyor musun?",
+    ogTitle: "Crowd Oracle - Geleceği Tahmin Et",
+    ogDescription: "Topluluk bilgeliğiyle geleceği tahmin et. ETH fiyat tahminleri ve kitle analizi.",
     ogImageUrl: `${ROOT_URL}/blue-hero.png`,
   },
 } as const;

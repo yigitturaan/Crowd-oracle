@@ -2,15 +2,39 @@ import type { Metadata } from "next";
 import { Inter, Russo_One, Space_Mono } from "next/font/google";
 import "./globals.css";
 import EyeBlink from "@/components/EyeBlink";
+import MiniAppReady from "@/components/MiniAppReady";
+import { minikitConfig } from "@/minikit.config";
 
 const inter = Inter({ subsets: ["latin"] });
 const russo = Russo_One({ weight: "400", subsets: ["latin"], variable: "--font-russo" });
 const space = Space_Mono({ weight: "400", subsets: ["latin"], variable: "--font-space" });
 
-export const metadata: Metadata = {
-  title: "Crowd Oracle",
-  description: "Geleceği Tahmin Et",
-};
+const ROOT_URL =
+  process.env.NEXT_PUBLIC_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:3000');
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: minikitConfig.miniapp.name || "Crowd Oracle",
+    description: minikitConfig.miniapp.description || "Geleceği Tahmin Et",
+    other: {
+      'fc:miniapp': JSON.stringify({
+        version: 'next',
+        imageUrl: minikitConfig.miniapp.heroImageUrl || `${ROOT_URL}/blue-hero.png`,
+        button: {
+          title: `Launch ${minikitConfig.miniapp.name || 'Crowd Oracle'}`,
+          action: {
+            type: 'launch_miniapp',
+            name: minikitConfig.miniapp.name || 'Crowd Oracle',
+            url: ROOT_URL,
+            splashImageUrl: minikitConfig.miniapp.splashImageUrl || `${ROOT_URL}/blue-hero.png`,
+            splashBackgroundColor: minikitConfig.miniapp.splashBackgroundColor || '#000000',
+          },
+        },
+      }),
+    },
+  };
+}
 
 export default function RootLayout({
   children,
@@ -36,6 +60,7 @@ export default function RootLayout({
 
         {/* --- İÇERİK --- */}
         <div className="relative z-10 flex flex-col min-h-screen">
+          <MiniAppReady />
           {children}
         </div>
 
