@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect, Suspense } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts';
 
 interface RealStats {
@@ -73,6 +73,13 @@ function DashboardContent() {
   // Supabase'den veri çek ve istatistikleri hesapla
   useEffect(() => {
     const fetchStats = async () => {
+      // Supabase yapılandırması kontrolü
+      if (!isSupabaseConfigured()) {
+        console.warn('Supabase is not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY');
+        setLoading(false);
+        return;
+      }
+
       try {
         const { data, error } = await supabase
           .from('votes')
@@ -80,6 +87,12 @@ function DashboardContent() {
 
         if (error) {
           console.error('Supabase hatası:', error);
+          console.error('Error details:', {
+            message: error.message,
+            details: error.details,
+            hint: error.hint,
+            code: error.code
+          });
           setLoading(false);
           return;
         }
@@ -458,15 +471,31 @@ function DashboardContent() {
     // Input boşsa işlem yapma
     if (!suggestion.trim()) return;
     
+    // Supabase yapılandırması kontrolü
+    if (!isSupabaseConfigured()) {
+      console.warn('Supabase is not configured. Cannot send suggestion.');
+      setStatus('error');
+      setTimeout(() => {
+        setStatus('idle');
+      }, 3000);
+      return;
+    }
+    
     setStatus('idle');
     
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('suggestions')
         .insert({ content: suggestion });
       
       if (error) {
         console.error('Öneri gönderme hatası:', error);
+        console.error('Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
         setStatus('error');
         // 3 saniye sonra eski haline dön
         setTimeout(() => {

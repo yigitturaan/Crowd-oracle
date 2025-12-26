@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from 'next/navigation';
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 // ⚠️ TEST AYARLARI (Kolayca değiştirilebilir)
 const USER_VOTE = { type: 'Ayı', method: 'Sezgi' }; // Kullanıcının seçimi
@@ -41,6 +41,12 @@ function FinalContent() {
   // Supabase'den istatistikleri çek
   useEffect(() => {
     const fetchStats = async () => {
+      // Supabase yapılandırması kontrolü
+      if (!isSupabaseConfigured()) {
+        console.warn('Supabase is not configured. Statistics will not be loaded.');
+        return;
+      }
+
       try {
         const { data, error } = await supabase
           .from('votes')
@@ -48,6 +54,12 @@ function FinalContent() {
 
         if (error) {
           console.error('Supabase hatası:', error);
+          console.error('Error details:', {
+            message: error.message,
+            details: error.details,
+            hint: error.hint,
+            code: error.code
+          });
           return;
         }
 

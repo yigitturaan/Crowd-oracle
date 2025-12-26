@@ -2,7 +2,7 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import { Suspense } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase, isSupabaseConfigured } from "@/lib/supabaseClient";
 
 function MethodologyContent() {
   const searchParams = useSearchParams();
@@ -21,16 +21,32 @@ function MethodologyContent() {
     
     // Supabase'e kayıt (asenkron, kullanıcıyı bekletmez)
     const saveToSupabase = async () => {
+      // Supabase yapılandırması kontrolü
+      if (!isSupabaseConfigured()) {
+        console.warn('Supabase is not configured. Vote will not be saved to database.');
+        return;
+      }
+
       try {
         const user_id = Date.now().toString(); // Rastgele user_id
         
-        await supabase
+        const { error } = await supabase
           .from('votes')
           .insert({
             user_id: user_id,
             vote_choice: vote,
             method: method
           });
+
+        if (error) {
+          console.error('Supabase kayıt hatası:', error);
+          console.error('Error details:', {
+            message: error.message,
+            details: error.details,
+            hint: error.hint,
+            code: error.code
+          });
+        }
       } catch (error) {
         console.error('Supabase kayıt hatası:', error);
         // Hata olsa bile kullanıcıyı yönlendir
