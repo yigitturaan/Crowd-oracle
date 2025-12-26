@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from 'recharts';
 
@@ -13,7 +13,7 @@ interface RealStats {
   trendChange: number;
 }
 
-export default function DashboardPage() {
+function DashboardContent() {
   const searchParams = useSearchParams();
   const vote = searchParams.get('vote');
   const method = searchParams.get('method');
@@ -849,6 +849,25 @@ export default function DashboardPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8">
+        <main className="w-full max-w-md flex flex-col items-center gap-8">
+          <div className="bg-black/40 backdrop-blur-xl border border-cyan-500/30 rounded-3xl shadow-[0_0_60px_rgba(6,182,212,0.15)] p-10 flex flex-col items-center justify-center gap-6">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-cyan-400 border-l-transparent border-r-transparent shadow-[0_0_20px_#06b6d4]"></div>
+            <p className="text-2xl font-black text-white tracking-wide drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+              Yükleniyor...
+            </p>
+          </div>
+        </main>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 }
 

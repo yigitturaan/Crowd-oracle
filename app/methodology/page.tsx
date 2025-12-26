@@ -1,9 +1,10 @@
 'use client';
 
 import { useSearchParams, useRouter } from "next/navigation";
+import { Suspense } from "react";
 import { supabase } from "@/lib/supabaseClient";
 
-export default function MethodologyPage() {
+function MethodologyContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const vote = searchParams.get('vote') || '';
@@ -89,6 +90,22 @@ export default function MethodologyPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function MethodologyPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8">
+        <main className="w-full max-w-4xl flex flex-col items-center gap-8">
+          <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-2xl mb-12 text-center">
+            Yükleniyor...
+          </h1>
+        </main>
+      </div>
+    }>
+      <MethodologyContent />
+    </Suspense>
   );
 }
 
