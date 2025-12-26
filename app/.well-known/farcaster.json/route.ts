@@ -1,6 +1,9 @@
-import { withValidManifest } from "@coinbase/onchainkit/minikit";
-import { minikitConfig } from "../../../minikit.config";
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  return Response.json(withValidManifest(minikitConfig));
+  // Basit placeholder - Farcaster manifest dosyası
+  return NextResponse.json({
+    name: 'Crowd Oracle',
+    description: 'Geleceği Tahmin Et',
+  });
 }

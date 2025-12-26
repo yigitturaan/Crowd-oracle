@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Russo_One, Space_Mono } from "next/font/google";
 import "./globals.css";
-import OnchainProviders from "@/components/OnchainProviders";
 import EyeBlink from "@/components/EyeBlink";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -37,9 +36,7 @@ export default function RootLayout({
 
         {/* --- İÇERİK --- */}
         <div className="relative z-10 flex flex-col min-h-screen">
-          <OnchainProviders>
-            {children}
-          </OnchainProviders>
+          {children}
         </div>
 
       </body>
