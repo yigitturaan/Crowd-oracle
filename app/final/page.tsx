@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from 'next/navigation';
 import { supabase } from "@/lib/supabaseClient";
 
@@ -9,7 +9,7 @@ const USER_VOTE = { type: 'Ayı', method: 'Sezgi' }; // Kullanıcının seçimi
 const FINAL_ETH_PRICE = 2850.42; // Gerçekleşen Fiyat
 const TARGET_PRICE = 3000; // Hedef
 
-export default function FinalPage() {
+function FinalContent() {
   const searchParams = useSearchParams();
   // URL'den win parametresini oku: ?win=true = Kazanan, ?win=false veya yok = Kaybeden
   const IS_WINNER = searchParams.get('win') === 'true';
@@ -275,5 +275,18 @@ export default function FinalPage() {
 
       </main>
     </div>
+  );
+}
+
+export default function FinalPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8">
+        <div className="w-8 h-8 border-4 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+        <p className="text-white/60 font-space mt-4">Yükleniyor...</p>
+      </div>
+    }>
+      <FinalContent />
+    </Suspense>
   );
 }
