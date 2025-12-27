@@ -20,14 +20,14 @@ export async function generateMetadata(): Promise<Metadata> {
     other: {
       'fc:miniapp': JSON.stringify({
         version: 'next',
-        imageUrl: minikitConfig.miniapp.heroImageUrl || `${ROOT_URL}/blue-hero.png`,
+        imageUrl: minikitConfig.miniapp.heroImageUrl || `${ROOT_URL}/eye-logo.png`,
         button: {
           title: `Launch ${minikitConfig.miniapp.name || 'Crowd Oracle'}`,
           action: {
             type: 'launch_miniapp',
             name: minikitConfig.miniapp.name || 'Crowd Oracle',
             url: ROOT_URL,
-            splashImageUrl: minikitConfig.miniapp.splashImageUrl || `${ROOT_URL}/blue-hero.png`,
+            splashImageUrl: minikitConfig.miniapp.splashImageUrl || `${ROOT_URL}/eye-logo.png`,
             splashBackgroundColor: minikitConfig.miniapp.splashBackgroundColor || '#000000',
           },
         },
