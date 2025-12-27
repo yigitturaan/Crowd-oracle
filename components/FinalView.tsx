@@ -42,12 +42,12 @@ export default function FinalView({
     
     let message = '';
     if (outcome === 'win') {
-      message = `Göz ile hizalandım. Kehanetim doğrulandı ve gelecek benim gördüğüm gibi şekillendi. 👁️✨ Peki senin öngörün tuttu mu? #CrowdOracle`;
+      message = `Aligned with the Eye. My prophecy was fulfilled and the future took shape as I saw it. 👁️✨ Did your vision hold true? #CrowdOracle`;
     } else if (outcome === 'lose') {
-      message = `Gerçeklikte bir sapma tespit edildi... Sinyaller karıştı. Evren bugün benden farklı düşündü. 🥀 Senin sonucun ne? #CrowdOracle`;
+      message = `Reality deviation detected... Signals crossed. The universe had a different plan today. 🥀 What is your result? #CrowdOracle`;
     } else {
-      // Spectator veya diğer durumlar için gizemli mesaj
-      message = `Büyük Kehanet tamamlandı. Ben sessizce izlemeyi seçtim, ama Göz her şeyi gördü. 🔮 Gerçek ortaya çıktı. #CrowdOracle`;
+      // Spectator or other states - mysterious message
+      message = `The Great Prophecy is complete. I chose to watch in silence, but the Eye saw everything. 🔮 The truth is out. #CrowdOracle`;
     }
 
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(message)}&embeds[]=${encodeURIComponent(imageUrl)}`;
@@ -72,7 +72,7 @@ export default function FinalView({
           className="text-center"
         >
           <h1 className="text-4xl md:text-6xl font-black text-white drop-shadow-2xl">
-            ANALİZ EDİLİYOR...
+            PROCESSING...
           </h1>
         </motion.div>
       </div>
@@ -127,9 +127,9 @@ export default function FinalView({
           >
             <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_40px_rgba(234,179,8,0.9)] text-center">
-                KEHANET DOĞRULANDI.
+                PROPHECY FULFILLED
               </h1>
-              {/* Kullanıcı Tercihi Etiketi */}
+              {/* User Preference Label */}
               {userVote && userVote.type && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
@@ -138,7 +138,7 @@ export default function FinalView({
                   className="backdrop-blur-md bg-white/5 border border-white/10 rounded-full px-6 py-2 mt-4 mx-auto w-fit"
                 >
                   <span className="text-white/80 text-sm md:text-base font-medium font-space">
-                    TERCİHİN: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BOĞA' : 'AYI'}
+                    YOUR CHOICE: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BULL' : 'BEAR'}
                   </span>
                 </motion.div>
               )}
@@ -162,11 +162,11 @@ export default function FinalView({
                 className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
               >
                 <h2 className="text-sm md:text-base text-white/90 font-bold font-space uppercase tracking-wider mb-4">
-                  1 OCAK GERÇEĞİ
+                  JAN 1 REALITY
                 </h2>
                 <div className="space-y-2">
                   <p className="text-xs md:text-sm text-white/70 font-medium font-space">
-                    Hedef: {formatPrice(prices.target)}
+                    TARGET: {formatPrice(prices.target)}
                   </p>
                   <div className="h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent my-3"></div>
                   <p className="text-2xl md:text-4xl font-black text-green-400 drop-shadow-[0_0_30px_rgba(34,197,94,0.8)]">
@@ -183,10 +183,10 @@ export default function FinalView({
                 className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
               >
                 <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed mb-2">
-                  Kahinlerin <span className="text-yellow-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+                  <span className="text-yellow-400 font-black">{stats.percentage}%</span> of Oracles foresaw the truth.
                 </p>
                 <p className="text-lg md:text-xl text-yellow-100 font-black drop-shadow-[0_0_15px_rgba(234,179,8,0.7)]">
-                  Sen seçilmişlerdensin.
+                  The Eye has seen what you saw. The universe aligned with your vision.
                 </p>
               </motion.div>
 
@@ -205,7 +205,7 @@ export default function FinalView({
                 onClick={handleShare}
                 className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(234,179,8,0.6)] hover:shadow-[0_0_80px_rgba(234,179,8,1)] hover:from-yellow-400 hover:to-amber-400 transition-all duration-300 hover:scale-105 active:scale-95"
               >
-                ZAFERİ PAYLAŞ 🏆
+                SHARE VICTORY 🏆
               </button>
             </div>
           </motion.div>
@@ -260,7 +260,7 @@ export default function FinalView({
           >
             <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
               <h1 className="text-4xl md:text-7xl font-black bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(124,58,237,0.9)] text-center">
-                KEHANET TAMAMLANDI.
+                PROPHECY COMPLETE
               </h1>
             </div>
           </motion.div>
@@ -282,7 +282,7 @@ export default function FinalView({
                 className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 mb-4 md:mb-6"
               >
                 <p className="text-lg md:text-2xl text-white/90 font-medium font-space leading-relaxed text-center">
-                  Sen sessizliği seçtin, ama evren konuştu.
+                  You chose silence, but the Eye has spoken. The truth is revealed.
                 </p>
               </motion.div>
 
@@ -294,7 +294,7 @@ export default function FinalView({
                 className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
               >
                 <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed text-center">
-                  Kahinlerin <span className="text-purple-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+                  <span className="text-purple-400 font-black">{stats.percentage}%</span> of Oracles foresaw the truth.
                 </p>
               </motion.div>
 
@@ -313,7 +313,7 @@ export default function FinalView({
                 onClick={handleShare}
                 className="w-full py-4 md:py-5 rounded-2xl border-2 border-purple-500/50 bg-purple-950/20 backdrop-blur-sm text-purple-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(124,58,237,0.4)] hover:border-purple-400 hover:bg-purple-950/30 hover:shadow-[0_0_60px_rgba(124,58,237,0.8)] hover:text-purple-300 transition-all duration-300 hover:scale-105 active:scale-95"
               >
-                SONUCU PAYLAŞ 🔮
+                SHARE DISCOVERY 🔮
               </button>
             </div>
           </motion.div>
@@ -361,9 +361,9 @@ export default function FinalView({
         >
           <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_40px_rgba(239,68,68,0.9)] text-center glitch-text-severe">
-              SİNYAL HATASI.
+              REALITY GLITCH
             </h1>
-            {/* Kullanıcı Tercihi Etiketi */}
+            {/* User Preference Label */}
             {userVote && userVote.type && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -372,7 +372,7 @@ export default function FinalView({
                 className="backdrop-blur-md bg-white/5 border border-white/10 rounded-full px-6 py-2 mt-4 mx-auto w-fit"
               >
                 <span className="text-white/80 text-sm md:text-base font-medium font-space">
-                  TERCİHİN: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BOĞA' : 'AYI'}
+                  YOUR CHOICE: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BULL' : 'BEAR'}
                 </span>
               </motion.div>
             )}
@@ -396,11 +396,11 @@ export default function FinalView({
               className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
             >
               <h2 className="text-sm md:text-base text-white/90 font-bold font-space uppercase tracking-wider mb-4">
-                1 OCAK GERÇEĞİ
+                JAN 1 REALITY
               </h2>
               <div className="space-y-2">
                 <p className="text-xs md:text-sm text-white/70 font-medium font-space">
-                  Hedef: {formatPrice(prices.target)}
+                  TARGET: {formatPrice(prices.target)}
                 </p>
                 <div className="h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent my-3"></div>
                 <p className="text-2xl md:text-4xl font-black text-red-400 drop-shadow-[0_0_30px_rgba(239,68,68,0.8)]">
@@ -417,10 +417,10 @@ export default function FinalView({
               className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
             >
               <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed mb-2">
-                Kahinlerin <span className="text-red-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+                <span className="text-red-400 font-black">{stats.percentage}%</span> of Oracles foresaw the truth.
               </p>
               <p className="text-lg md:text-xl text-red-200 font-black drop-shadow-[0_0_15px_rgba(239,68,68,0.7)]">
-                Çoğunluk yanıldı.
+                Signal deviation detected. The future took a different path than you foresaw.
               </p>
             </motion.div>
 
@@ -439,7 +439,7 @@ export default function FinalView({
               onClick={handleShare}
               className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:border-red-400 hover:bg-red-950/30 hover:shadow-[0_0_60px_rgba(239,68,68,0.8)] hover:text-red-300 transition-all duration-300 hover:scale-105 active:scale-95 glitch-button"
             >
-              SONUCU PAYLAŞ 💀
+              SHARE RESULT 💀
             </button>
           </div>
         </motion.div>
