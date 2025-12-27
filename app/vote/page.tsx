@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 export default function VotePage() {
   // --- STATE TANIMLAMALARI ---
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [ethPrice, setEthPrice] = useState<string>("Yükleniyor...");
+  const [ethPrice, setEthPrice] = useState<string>("Loading...");
   
   // --- 1. SAYAÇ MANTIĞI (28 ARALIK 2025 00:00) ---
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function VotePage() {
       <div className="mb-6 w-full max-w-md">
         <div className="relative bg-black/20 backdrop-blur-sm border border-purple-500/20 rounded-full px-6 py-2 text-center shadow-[0_0_20px_rgba(168,85,247,0.1)] flex items-center justify-center gap-4">
             <h3 className="text-purple-300/70 text-[10px] tracking-[0.2em] uppercase font-bold hidden md:block">
-              BİTİŞE:
+              REVEAL IN:
             </h3>
             
             <div className="flex items-center gap-2 font-[var(--font-space)] text-lg md:text-xl text-white font-bold tracking-widest">
@@ -93,15 +93,15 @@ export default function VotePage() {
       {/* --- SORU (DARALTILDI - GÖZÜN İÇİNE HAPSEDİLDİ) --- */}
       <div className="mb-12 text-center max-w-2xl relative px-4">
         <h1 className="text-3xl md:text-5xl font-black text-white leading-tight tracking-tight drop-shadow-2xl">
-          1 Ocak 2026'da <br />
+          Will <br />
           <span className="text-cyan-400 mx-1 inline-block drop-shadow-[0_0_25px_rgba(6,182,212,0.9)]">
              ETH
           </span> 
-          fiyatı
+          break the
           <span className="text-purple-400 mx-2 inline-block drop-shadow-[0_0_25px_rgba(192,132,252,0.9)]">
-             $3.000
+             $3,000
           </span> 
-          barajını geçebilecek mi?
+          barrier on Jan 1, 2026?
         </h1>
       </div>
 
@@ -114,8 +114,8 @@ export default function VotePage() {
             <div className="relative h-full bg-green-950/50 backdrop-blur-sm border-2 border-green-500 hover:border-green-400 rounded-xl flex items-center justify-center gap-4 transition-all group-hover:scale-[1.02] group-hover:bg-green-950/60">
                 <span className="text-3xl filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">🚀</span>
                 <div className="flex flex-col items-start">
-                  <span className="text-3xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">EVET</span>
-                  <span className="text-[10px] text-green-400 font-[var(--font-space)] tracking-[0.2em] uppercase opacity-90">GEÇER</span>
+                  <span className="text-3xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">YES</span>
+                  <span className="text-[10px] text-green-400 font-[var(--font-space)] tracking-[0.2em] uppercase opacity-90">(IT WILL)</span>
                 </div>
             </div>
         </Link>
@@ -126,8 +126,8 @@ export default function VotePage() {
             <div className="relative h-full bg-red-950/50 backdrop-blur-sm border-2 border-red-500 hover:border-red-400 rounded-xl flex items-center justify-center gap-4 transition-all group-hover:scale-[1.02] group-hover:bg-red-950/60">
                  <span className="text-3xl filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">📉</span>
                  <div className="flex flex-col items-start">
-                  <span className="text-3xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(244,63,94,0.5)]">HAYIR</span>
-                  <span className="text-[10px] text-red-400 font-[var(--font-space)] tracking-[0.2em] uppercase opacity-90">GEÇMEZ</span>
+                  <span className="text-3xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(244,63,94,0.5)]">NO</span>
+                  <span className="text-[10px] text-red-400 font-[var(--font-space)] tracking-[0.2em] uppercase opacity-90">(IT WON'T)</span>
                 </div>
             </div>
         </Link>
@@ -135,7 +135,7 @@ export default function VotePage() {
       </div>
 
       <Link href="/" className="mt-12 text-white/20 hover:text-white transition-colors text-xs font-[var(--font-space)] border-b border-transparent hover:border-white pb-1 tracking-widest uppercase">
-        ← İptal Et
+        ← CANCEL
       </Link>
 
     </main>
