@@ -68,7 +68,7 @@ function MethodologyContent() {
       <main className="w-full max-w-4xl flex flex-col items-center gap-8">
         {/* Başlık */}
         <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-2xl mb-12 text-center">
-          KARARINI NEYE GÖRE VERDİN?
+          WHAT GUIDED YOUR VISION?
         </h1>
 
         {/* Kartlar */}
@@ -82,10 +82,10 @@ function MethodologyContent() {
             <div className="relative h-full bg-amber-950/30 backdrop-blur-md border-2 border-amber-500 hover:border-amber-400 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-[0_0_20px_rgba(245,158,11,0.2)] group-hover:scale-[1.03]">
               <div className="text-4xl">🧠</div>
               <h2 className="font-black text-2xl text-white">
-                MANTIK & VERİ
+                LOGIC & DATA
               </h2>
               <p className="font-space text-amber-200 text-xs">
-                Grafikler, analizler, teknik veriler.
+                Charts, analysis, technical indicators.
               </p>
             </div>
           </button>
@@ -99,10 +99,10 @@ function MethodologyContent() {
             <div className="relative h-full bg-pink-950/30 backdrop-blur-md border-2 border-pink-500 hover:border-pink-400 rounded-2xl flex flex-col items-center justify-center gap-2 shadow-[0_0_20px_rgba(236,72,153,0.2)] group-hover:scale-[1.03]">
               <div className="text-4xl">🔮</div>
               <h2 className="font-black text-2xl text-white">
-                HİS & SEZGİ
+                GUT & INTUITION
               </h2>
               <p className="font-space text-pink-200 text-xs">
-              Piyasa psikolojisi, sosyal algı, içgüdü.
+              Market psychology, social sentiment, instinct.
               </p>
             </div>
           </button>
@@ -118,7 +118,7 @@ export default function MethodologyPage() {
       <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8">
         <main className="w-full max-w-4xl flex flex-col items-center gap-8">
           <h1 className="text-3xl md:text-5xl font-black text-white drop-shadow-2xl mb-12 text-center">
-            Yükleniyor...
+            Loading...
           </h1>
         </main>
       </div>
