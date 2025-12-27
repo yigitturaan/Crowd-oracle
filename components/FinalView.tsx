@@ -58,23 +58,34 @@ export default function FinalView({
       <div className="min-h-screen bg-transparent flex flex-col relative z-10 overflow-hidden">
         {/* KATMAN 1: ARKA PLAN & COŞKU EFEKTLERİ (Z-0) */}
         <div className="fixed inset-0 z-0 pointer-events-none">
-          <Background />
+          {/* Gözü altın rengine çeviren filtre */}
+          <div className="sepia-[1] brightness-150 saturate-200 hue-rotate-15">
+            <Background />
+          </div>
           
-          {/* Gözün merkezinden yayılan altın ışık huzmesi */}
+          {/* Sunburst/God Rays - Yavaşça dönen ışık huzmesi */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center animate-rotate-slow"
+            style={{
+              background: 'conic-gradient(from 0deg at center, transparent 0deg, rgba(234, 179, 8, 0.3) 60deg, transparent 120deg, rgba(234, 179, 8, 0.2) 180deg, transparent 240deg, rgba(234, 179, 8, 0.3) 300deg, transparent 360deg)',
+            }}
+          ></div>
+
+          {/* Güçlendirilmiş Bloom efekti - Gözün merkezinden yayılan parlaklık */}
           <div 
             className="absolute inset-0 flex items-center justify-center"
             style={{
-              background: 'radial-gradient(circle at center, rgba(234, 179, 8, 0.4) 0%, rgba(234, 179, 8, 0.2) 30%, transparent 60%)',
+              background: 'radial-gradient(circle at center, rgba(234, 179, 8, 0.6) 0%, rgba(234, 179, 8, 0.4) 20%, rgba(234, 179, 8, 0.2) 40%, transparent 70%)',
             }}
           >
-            <div className="w-[800px] h-[450px] border-[2px] border-yellow-400/90 rounded-[100%] drop-shadow-[0_0_150px_rgba(234,179,8,0.9)] animate-pulse"></div>
+            <div className="w-[800px] h-[450px] border-[2px] border-yellow-400/95 rounded-[100%] drop-shadow-[0_0_200px_rgba(234,179,8,1)] animate-pulse"></div>
           </div>
 
           {/* Köşelerde altın parçacık efektleri */}
-          <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-400/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-300/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-300/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         </div>
 
         {/* KATMAN 2: PARÇALANMIŞ UI (Z-10) */}
@@ -87,8 +98,8 @@ export default function FinalView({
             transition={{ duration: 0.8 }}
             className="w-full px-4 pt-8 md:pt-12"
           >
-            <div className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
-              <h1 className="text-4xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_30px_rgba(234,179,8,0.8)] text-center">
+            <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_40px_rgba(234,179,8,0.9)] text-center">
                 KEHANET DOĞRULANDI.
               </h1>
             </div>
@@ -108,17 +119,17 @@ export default function FinalView({
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
               >
-                <h2 className="text-sm md:text-base text-white/60 font-space uppercase tracking-wider mb-4">
+                <h2 className="text-sm md:text-base text-white/90 font-bold font-space uppercase tracking-wider mb-4">
                   1 OCAK GERÇEĞİ
                 </h2>
                 <div className="space-y-2">
-                  <p className="text-xs md:text-sm text-gray-400 font-space">
+                  <p className="text-xs md:text-sm text-white/70 font-medium font-space">
                     Hedef: {formatPrice(prices.target)}
                   </p>
-                  <div className="h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent my-3"></div>
-                  <p className="text-2xl md:text-4xl font-black text-green-400 drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]">
+                  <div className="h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent my-3"></div>
+                  <p className="text-2xl md:text-4xl font-black text-green-400 drop-shadow-[0_0_30px_rgba(34,197,94,0.8)]">
                     {formatPrice(prices.actual)}
                   </p>
                 </div>
@@ -129,12 +140,12 @@ export default function FinalView({
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
               >
-                <p className="text-sm md:text-base text-white/80 font-space leading-relaxed mb-2">
+                <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed mb-2">
                   Kahinlerin <span className="text-yellow-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
                 </p>
-                <p className="text-lg md:text-xl text-yellow-300 font-black drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]">
+                <p className="text-lg md:text-xl text-yellow-100 font-black drop-shadow-[0_0_15px_rgba(234,179,8,0.7)]">
                   Sen seçilmişlerdensin.
                 </p>
               </motion.div>
@@ -152,7 +163,7 @@ export default function FinalView({
             <div className="max-w-2xl mx-auto">
               <button
                 onClick={onButtonClick}
-                className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_50px_rgba(234,179,8,0.8)] transition-all duration-300 hover:scale-105"
+                className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(234,179,8,0.6)] hover:shadow-[0_0_60px_rgba(234,179,8,0.9)] transition-all duration-300 hover:scale-105"
               >
                 ZAFERİ PAYLAŞ 🏆
               </button>
@@ -168,7 +179,7 @@ export default function FinalView({
   return (
     <div className="min-h-screen bg-transparent flex flex-col relative z-10 overflow-hidden">
       {/* KATMAN 1: ARKA PLAN & COŞKU EFEKTLERİ (Z-0) */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 z-0 pointer-events-none bg-black/30">
         <Background />
         
         {/* Gözün glitch efekti */}
@@ -177,13 +188,13 @@ export default function FinalView({
         </div>
 
         {/* Kırmızı yanıp sönen ışıklar */}
-        <div className="absolute top-0 left-0 w-full h-full bg-red-500/10 animate-pulse-red"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/30 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-700/30 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-red-500/15 animate-pulse-red"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/40 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-700/40 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '1s' }}></div>
 
-        {/* Noise overlay */}
+        {/* Noise overlay - Daha koyu */}
         <div 
-          className="absolute inset-0 opacity-[0.2]"
+          className="absolute inset-0 opacity-[0.25]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
@@ -200,8 +211,8 @@ export default function FinalView({
           transition={{ duration: 0.8 }}
           className="w-full px-4 pt-8 md:pt-12"
         >
-          <div className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_30px_rgba(239,68,68,0.8)] text-center glitch-text-severe">
+          <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_40px_rgba(239,68,68,0.9)] text-center glitch-text-severe">
               SİNYAL HATASI.
             </h1>
           </div>
@@ -221,17 +232,17 @@ export default function FinalView({
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+              className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
             >
-              <h2 className="text-sm md:text-base text-white/60 font-space uppercase tracking-wider mb-4">
+              <h2 className="text-sm md:text-base text-white/90 font-bold font-space uppercase tracking-wider mb-4">
                 1 OCAK GERÇEĞİ
               </h2>
               <div className="space-y-2">
-                <p className="text-xs md:text-sm text-gray-400 font-space">
+                <p className="text-xs md:text-sm text-white/70 font-medium font-space">
                   Hedef: {formatPrice(prices.target)}
                 </p>
-                <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-3"></div>
-                <p className="text-2xl md:text-4xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">
+                <div className="h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent my-3"></div>
+                <p className="text-2xl md:text-4xl font-black text-red-400 drop-shadow-[0_0_30px_rgba(239,68,68,0.8)]">
                   {formatPrice(prices.actual)}
                 </p>
               </div>
@@ -242,12 +253,12 @@ export default function FinalView({
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+              className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
             >
-              <p className="text-sm md:text-base text-white/80 font-space leading-relaxed mb-2">
+              <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed mb-2">
                 Kahinlerin <span className="text-red-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
               </p>
-              <p className="text-lg md:text-xl text-red-300 font-black drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+              <p className="text-lg md:text-xl text-red-200 font-black drop-shadow-[0_0_15px_rgba(239,68,68,0.7)]">
                 Çoğunluk yanıldı.
               </p>
             </motion.div>
@@ -265,7 +276,7 @@ export default function FinalView({
           <div className="max-w-2xl mx-auto">
             <button
               onClick={onButtonClick}
-              className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:border-red-400 hover:bg-red-950/30 transition-all duration-300 hover:scale-105"
+              className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:border-red-400 hover:bg-red-950/30 transition-all duration-300 hover:scale-105"
             >
               SONUCU PAYLAŞ 💀
             </button>
@@ -276,8 +287,8 @@ export default function FinalView({
 
       <style jsx>{`
         @keyframes pulse-red {
-          0%, 100% { opacity: 0.1; }
-          50% { opacity: 0.3; }
+          0%, 100% { opacity: 0.15; }
+          50% { opacity: 0.35; }
         }
         .animate-pulse-red {
           animation: pulse-red 1.5s ease-in-out infinite;
@@ -361,12 +372,21 @@ export default function FinalView({
           }
         }
 
+        @keyframes rotate-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
         .animate-glitch-severe {
           animation: glitch-severe 0.3s infinite;
         }
 
         .glitch-text-severe {
           animation: glitch-text-severe 0.3s infinite;
+        }
+
+        .animate-rotate-slow {
+          animation: rotate-slow 30s linear infinite;
         }
       `}</style>
     </div>
