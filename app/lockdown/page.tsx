@@ -283,11 +283,11 @@ export default function LockdownPage() {
   // Kullanıcının oy metnini oluştur
   const getUserVoteText = () => {
     if (!userVote || !userVote.vote || !userVote.method) {
-      return { text: 'OY VERMEDİN', color: 'text-gray-400' };
+      return { text: 'NO VOTE', color: 'text-gray-400' };
     }
     
-    const voteText = userVote.vote === 'yes' ? 'BOĞA' : 'AYI';
-    const methodText = userVote.method === 'logic' ? 'MANTIKSAL' : 'SEZGİSEL';
+    const voteText = userVote.vote === 'yes' ? 'BULL' : 'BEAR';
+    const methodText = userVote.method === 'logic' ? 'LOGICAL' : 'INTUITIVE';
     
     let color = 'text-white';
     if (userVote.vote === 'yes') {
@@ -296,7 +296,7 @@ export default function LockdownPage() {
       color = userVote.method === 'logic' ? 'text-orange-400' : 'text-purple-400';
     }
     
-    return { text: `${methodText} ${voteText}`, color };
+    return { text: `You are a ${voteText}`, color };
   };
 
   const userVoteInfo = getUserVoteText();
@@ -341,22 +341,22 @@ export default function LockdownPage() {
           {/* EĞER OY VARSA: "Sen Bir X'sin" kartını göster */}
           {userVote && userVote.vote && userVote.method ? (
             <>
-              <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">SENİN OYUN</p>
+              <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">YOUR VOTE</p>
               <h2 className={`text-3xl md:text-5xl font-black ${userVoteInfo.color} mb-4 drop-shadow-[0_0_10px_currentColor]`}>
                 {userVoteInfo.text}
               </h2>
               <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-4">
-                OYLAMA BİTTİ. SONUÇLAR BEKLENİYOR.
+                VOTING ENDED. RESULTS PENDING.
               </h1>
             </>
           ) : (
             /* EĞER OY YOKSA: "Kapılar Kapandı" mesajı */
             <>
               <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-2">
-                KAPILAR KAPANDI.
+                GATES CLOSED.
               </h1>
               <p className="text-base md:text-lg text-white/70 font-medium font-space mb-4">
-                Kehanet süreci başladı. Artık sadece izleyebilirsin.
+                The prophecy process has begun. Now you can only witness.
               </p>
             </>
           )}
@@ -364,7 +364,7 @@ export default function LockdownPage() {
           {/* Geri Sayım Sayacı (Her durumda göster) */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.2)] p-4 md:p-6 mt-4">
             <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-3 text-center">
-              SONUÇLARIN AÇIKLANMASINA
+              REVEAL IN:
             </p>
             {timeLeft ? (
               <div className="flex items-center justify-center gap-2 md:gap-4 flex-wrap">
@@ -372,34 +372,34 @@ export default function LockdownPage() {
                   <span className="text-3xl md:text-5xl font-black font-space text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
                     {String(timeLeft.days).padStart(2, '0')}
                   </span>
-                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Gün</span>
+                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Days</span>
                 </div>
                 <span className="text-2xl md:text-4xl text-white/40 font-space">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-3xl md:text-5xl font-black font-space text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
                     {String(timeLeft.hours).padStart(2, '0')}
                   </span>
-                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Saat</span>
+                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Hours</span>
                 </div>
                 <span className="text-2xl md:text-4xl text-white/40 font-space">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-3xl md:text-5xl font-black font-space text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
                     {String(timeLeft.minutes).padStart(2, '0')}
                   </span>
-                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Dakika</span>
+                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Minutes</span>
                 </div>
                 <span className="text-2xl md:text-4xl text-white/40 font-space">:</span>
                 <div className="flex flex-col items-center">
                   <span className="text-3xl md:text-5xl font-black font-space text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
                     {String(timeLeft.seconds).padStart(2, '0')}
                   </span>
-                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Saniye</span>
+                  <span className="text-xs md:text-sm text-white/60 font-space uppercase tracking-wider mt-1">Seconds</span>
                 </div>
               </div>
             ) : (
-              <p className="text-center text-white/60 font-space">Hesaplanıyor...</p>
+              <p className="text-center text-white/60 font-space">Calculating...</p>
             )}
-            <p className="text-xs text-white/40 text-center mt-3 font-space">1 Ocak 2026 Saat 00:00</p>
+            <p className="text-xs text-white/40 text-center mt-3 font-space">January 1, 2026 00:00</p>
           </div>
         </div>
 
@@ -417,10 +417,10 @@ export default function LockdownPage() {
                       <>
                         <div className="flex items-center gap-2">
                           <span className="text-white/40 text-[10px] md:text-xs font-space uppercase tracking-[0.2em]">
-                            {activeData ? `GEÇMİŞ (${displayData.time})` : 'ŞU AN'}
+                            {activeData ? `PAST (${displayData.time})` : 'NOW'}
                           </span>
                           <span className="text-white/30 text-[10px] md:text-xs font-space">
-                            {displayData.totalVotes || 0} oy
+                            {displayData.totalVotes || 0} votes
                           </span>
                         </div>
                         <div className="flex items-center gap-4 mt-1">
@@ -428,14 +428,14 @@ export default function LockdownPage() {
                             <span className="text-4xl md:text-6xl font-black text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
                               %{displayData.bullRate}
                             </span>
-                            <span className="text-[10px] text-green-300/70 font-space tracking-widest uppercase">BOĞA</span>
+                            <span className="text-[10px] text-green-300/70 font-space tracking-widest uppercase">BULL</span>
                           </div>
                           <div className="h-8 w-px bg-white/10"></div>
                           <div className="flex flex-col">
                             <span className="text-4xl md:text-6xl font-black text-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">
                               %{displayData.bearRate}
                             </span>
-                            <span className="text-[10px] text-red-300/70 font-space tracking-widest uppercase">AYI</span>
+                            <span className="text-[10px] text-red-300/70 font-space tracking-widest uppercase">BEAR</span>
                           </div>
                         </div>
                       </>
@@ -494,12 +494,12 @@ export default function LockdownPage() {
                   </ResponsiveContainer>
                 </div>
                 <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space text-center mt-2 px-2">
-                  FİYAT BEKLENTİSİ (MOMENTUM)
+                  PRICE EXPECTATION (MOMENTUM)
                 </p>
               </>
             ) : (
               <div className="flex items-center justify-center h-64 md:h-96 text-white/40 text-sm font-space">
-                Veri yükleniyor...
+                Loading data...
               </div>
             )}
           </div>
@@ -517,7 +517,7 @@ export default function LockdownPage() {
                       <>
                         <div className="flex items-center gap-2">
                           <span className="text-white/40 text-[10px] md:text-xs font-space uppercase tracking-[0.2em]">
-                            {activeEthData ? `GEÇMİŞ (${displayEthData.time})` : 'ŞU AN'}
+                            {activeEthData ? `PAST (${displayEthData.time})` : 'NOW'}
                           </span>
                         </div>
                         <div className="flex items-center gap-4 mt-1">
@@ -526,7 +526,7 @@ export default function LockdownPage() {
                               ${currentPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </span>
                             <span className={`text-[10px] font-space tracking-widest uppercase ${isAboveTarget ? 'text-green-300/70' : 'text-red-300/70'}`}>
-                              ETH FİYAT
+                              ETH PRICE
                             </span>
                           </div>
                         </div>
@@ -603,12 +603,12 @@ export default function LockdownPage() {
                   </ResponsiveContainer>
                 </div>
                 <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space text-center mt-2 px-2">
-                  ETH FİYAT HEDEFİ ($3.000)
+                  ETH PRICE TARGET ($3,000)
                 </p>
               </>
             ) : (
               <div className="flex items-center justify-center h-64 md:h-96 text-white/40 text-sm font-space">
-                Fiyat verisi yükleniyor...
+                Loading price data...
               </div>
             )}
           </div>
