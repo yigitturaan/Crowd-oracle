@@ -36,7 +36,7 @@ export const minikitConfig = {
     tags: ["prediction", "crypto", "ethereum", "crowd", "oracle"],
     heroImageUrl: `${ROOT_URL}/blue-hero.png`, 
     tagline: "Geleceği Görebiliyor musun?",
-    ogTitle: "Crowd Oracle - Geleceği Tahmin Et",
+    ogTitle: "Crowd Oracle",
     ogDescription: "Topluluk bilgeliğiyle geleceği tahmin et. ETH fiyat tahminleri ve kitle analizi.",
     ogImageUrl: `${ROOT_URL}/blue-hero.png`,
   },
