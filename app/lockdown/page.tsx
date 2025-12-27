@@ -619,7 +619,7 @@ export default function LockdownPage() {
           
           {/* Karar Mekanizması (Genel) */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.2)] p-4 md:p-6">
-            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">KARAR MEKANİZMASI</p>
+            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">DECISION MECHANISM</p>
             <div className="relative w-full h-8 rounded-lg overflow-hidden mb-3">
               <div 
                 className="absolute left-0 top-0 h-full bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500"
@@ -631,10 +631,10 @@ export default function LockdownPage() {
               ></div>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-orange-400 font-black font-space">Mantık %{stats.logicPercentage}</span>
-              <span className="text-purple-400 font-black font-space">Sezgi %{stats.intuitionPercentage}</span>
+              <span className="text-orange-400 font-black font-space">Logic %{stats.logicPercentage}</span>
+              <span className="text-purple-400 font-black font-space">Intuition %{stats.intuitionPercentage}</span>
             </div>
-            <p className="text-xs text-white/40 mt-2 font-space">{stats.totalVotes} oy</p>
+            <p className="text-xs text-white/40 mt-2 font-space">{stats.totalVotes} votes</p>
           </div>
 
           {/* Karar Mekanizması Detayı */}
