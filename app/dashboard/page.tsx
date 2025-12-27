@@ -584,13 +584,13 @@ function DashboardContent() {
             </h3>
             
             <div className="flex items-center gap-2 font-[var(--font-space)] text-lg md:text-xl text-white font-bold tracking-widest">
-              <span className="drop-shadow-md">{formatTime(timeLeft.days)}g</span>
+              <span className="drop-shadow-md">{formatTime(timeLeft.days)}d</span>
               <span className="text-purple-500/50">:</span>
-              <span className="drop-shadow-md">{formatTime(timeLeft.hours)}s</span>
+              <span className="drop-shadow-md">{formatTime(timeLeft.hours)}h</span>
               <span className="text-purple-500/50">:</span>
-              <span className="drop-shadow-md">{formatTime(timeLeft.minutes)}d</span>
+              <span className="drop-shadow-md">{formatTime(timeLeft.minutes)}m</span>
               <span className="text-purple-500/50">:</span>
-              <span className="text-cyan-400 drop-shadow-lg">{formatTime(timeLeft.seconds)}</span>
+              <span className="text-cyan-400 drop-shadow-lg">{formatTime(timeLeft.seconds)}s</span>
             </div>
           </div>
         </div>
