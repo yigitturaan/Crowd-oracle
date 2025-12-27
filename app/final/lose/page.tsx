@@ -15,7 +15,7 @@ export default function LosePage() {
         target: 3000,
         actual: 2840.20
       }}
-      userVote={{ type: 'bear' }}
+      userVote={{ type: 'bull' }}
     />
   );
 }
