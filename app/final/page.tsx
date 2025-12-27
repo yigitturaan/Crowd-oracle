@@ -57,6 +57,15 @@ function FinalContent() {
           method: voteData.method || 'logic'
         };
 
+        // Fiyatı currentPrice olarak sakla
+        const currentPrice = actualPrice;
+
+        // DEBUG: Konsola log ekle
+        console.log('=== FINAL PAGE DEBUG ===');
+        console.log('Kullanıcı Oyu:', userVote.type);
+        console.log('Anlık Fiyat:', currentPrice);
+        console.log('Hedef Fiyat:', TARGET_PRICE);
+
         // C. TOPLULUK İSTATİSTİKLERİ (Supabase)
         let totalCount = 0;
         let correctCount = 0;
@@ -71,7 +80,7 @@ function FinalContent() {
               totalCount = data.length;
               
               // Doğru tahmin edenleri hesapla
-              const winnerVote = actualPrice >= TARGET_PRICE ? 'yes' : 'no';
+              const winnerVote = currentPrice >= TARGET_PRICE ? 'yes' : 'no';
               correctCount = data.filter(v => v.vote_choice === winnerVote).length;
             }
           } catch (error) {
@@ -87,12 +96,18 @@ function FinalContent() {
 
         const percentage = Math.round((correctCount / totalCount) * 100);
 
-        // 3. SONUÇ HESAPLAMA
-        const isWin = 
-          (actualPrice >= TARGET_PRICE && userVote.type === 'bull') ||
-          (actualPrice < TARGET_PRICE && userVote.type === 'bear');
+        // 1. KAZANMA MANTIĞINI SIKILAŞTIR
+        const isBullWin = userVote.type === 'bull' && currentPrice >= TARGET_PRICE;
+        const isBearWin = userVote.type === 'bear' && currentPrice < TARGET_PRICE;
+        const result = (isBullWin || isBearWin) ? 'win' : 'lose';
 
-        // Stats ve prices'ı set et
+        // DEBUG: Sonucu konsola yazdır
+        console.log('Bull Win:', isBullWin);
+        console.log('Bear Win:', isBearWin);
+        console.log('Sonuç:', result);
+        console.log('======================');
+
+        // 2. İSTATİSTİKLERİ VE FİYATI GÜNCELLE
         setStats({
           correctCount,
           totalCount,
@@ -101,11 +116,11 @@ function FinalContent() {
 
         setPrices({
           target: TARGET_PRICE,
-          actual: Math.round(actualPrice * 100) / 100 // 2 ondalık basamak
+          actual: Math.round(currentPrice * 100) / 100 // 2 ondalık basamak
         });
 
         // Sonucu set et
-        setOutcome(isWin ? 'win' : 'lose');
+        setOutcome(result);
 
       } catch (error) {
         console.error('Veri çekme hatası:', error);
