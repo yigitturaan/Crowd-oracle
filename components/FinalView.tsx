@@ -33,6 +33,28 @@ export default function FinalView({
     }).format(price);
   };
 
+  // Paylaş butonu fonksiyonu
+  const handleShare = () => {
+    const baseUrl = window.location.origin;
+    const imageUrl = `${baseUrl}/api/og?outcome=${outcome}&price=${prices.actual}`;
+    
+    let message = '';
+    if (outcome === 'win') {
+      message = `Crowd Oracle konuşuyor: Geleceği gördüm ve haklı çıktım. ETH $${prices.actual} oldu! 🔮 #CrowdOracle`;
+    } else {
+      message = `Crowd Oracle'da sinyaller karıştı... ETH $${prices.actual} oldu. Bir dahaki sefere. 🥀 #CrowdOracle`;
+    }
+
+    const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(message)}&embeds[]=${encodeURIComponent(imageUrl)}`;
+    
+    window.open(warpcastUrl, '_blank', 'noopener,noreferrer');
+    
+    // Opsiyonel: onButtonClick callback'i de çağır
+    if (onButtonClick) {
+      onButtonClick();
+    }
+  };
+
   // LOADING durumu
   if (outcome === 'loading') {
     return (
@@ -162,8 +184,8 @@ export default function FinalView({
           >
             <div className="max-w-2xl mx-auto">
               <button
-                onClick={onButtonClick}
-                className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(234,179,8,0.6)] hover:shadow-[0_0_60px_rgba(234,179,8,0.9)] transition-all duration-300 hover:scale-105"
+                onClick={handleShare}
+                className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(234,179,8,0.6)] hover:shadow-[0_0_80px_rgba(234,179,8,1)] hover:from-yellow-400 hover:to-amber-400 transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 ZAFERİ PAYLAŞ 🏆
               </button>
@@ -275,8 +297,8 @@ export default function FinalView({
         >
           <div className="max-w-2xl mx-auto">
             <button
-              onClick={onButtonClick}
-              className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:border-red-400 hover:bg-red-950/30 transition-all duration-300 hover:scale-105"
+              onClick={handleShare}
+              className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(239,68,68,0.4)] hover:border-red-400 hover:bg-red-950/30 hover:shadow-[0_0_60px_rgba(239,68,68,0.8)] hover:text-red-300 transition-all duration-300 hover:scale-105 active:scale-95 glitch-button"
             >
               SONUCU PAYLAŞ 💀
             </button>
@@ -387,6 +409,37 @@ export default function FinalView({
 
         .animate-rotate-slow {
           animation: rotate-slow 30s linear infinite;
+        }
+
+        @keyframes glitch-button {
+          0%, 100% {
+            text-shadow: 
+              2px 0 #ff0000,
+              -2px 0 #00ffff;
+            transform: translate(0);
+          }
+          25% {
+            text-shadow: 
+              -2px 0 #ff0000,
+              2px 0 #00ffff;
+            transform: translate(1px, -1px);
+          }
+          50% {
+            text-shadow: 
+              2px 0 #ff0000,
+              -2px 0 #00ffff;
+            transform: translate(-1px, 1px);
+          }
+          75% {
+            text-shadow: 
+              -2px 0 #ff0000,
+              2px 0 #00ffff;
+            transform: translate(1px, 1px);
+          }
+        }
+
+        .glitch-button:hover {
+          animation: glitch-button 0.2s infinite;
         }
       `}</style>
     </div>
