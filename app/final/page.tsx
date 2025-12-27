@@ -12,7 +12,7 @@ const DEBUG_MODE = false; // True yaparsak tarihi beklemeden sonucu görebiliriz
 function FinalContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const [outcome, setOutcome] = useState<'win' | 'lose' | 'loading'>('loading');
+  const [outcome, setOutcome] = useState<'win' | 'lose' | 'spectator' | 'loading'>('loading');
   const [stats, setStats] = useState({ correctCount: 0, totalCount: 0, percentage: 0 });
   const [prices, setPrices] = useState({ target: TARGET_PRICE, actual: 0 });
 
@@ -34,39 +34,10 @@ function FinalContent() {
           console.warn('CoinGecko API hatası, fallback fiyat kullanılıyor:', error);
         }
 
-        // B. KULLANICI OYU
-        const voteDataStr = localStorage.getItem('crowd-oracle-vote');
-        if (!voteDataStr) {
-          // Oy yoksa dashboard'a yönlendir
-          router.push('/dashboard');
-          return;
-        }
-
-        let voteData;
-        try {
-          voteData = JSON.parse(voteDataStr);
-        } catch (error) {
-          console.error('localStorage parse hatası:', error);
-          router.push('/dashboard');
-          return;
-        }
-
-        // vote formatını type formatına çevir
-        const userVote = {
-          type: voteData.vote === 'yes' ? 'bull' : 'bear',
-          method: voteData.method || 'logic'
-        };
-
         // Fiyatı currentPrice olarak sakla
         const currentPrice = actualPrice;
 
-        // DEBUG: Konsola log ekle
-        console.log('=== FINAL PAGE DEBUG ===');
-        console.log('Kullanıcı Oyu:', userVote.type);
-        console.log('Anlık Fiyat:', currentPrice);
-        console.log('Hedef Fiyat:', TARGET_PRICE);
-
-        // C. TOPLULUK İSTATİSTİKLERİ (Supabase)
+        // C. TOPLULUK İSTATİSTİKLERİ (Supabase) - Her durumda çek
         let totalCount = 0;
         let correctCount = 0;
 
@@ -96,18 +67,7 @@ function FinalContent() {
 
         const percentage = Math.round((correctCount / totalCount) * 100);
 
-        // 1. KAZANMA MANTIĞINI SIKILAŞTIR
-        const isBullWin = userVote.type === 'bull' && currentPrice >= TARGET_PRICE;
-        const isBearWin = userVote.type === 'bear' && currentPrice < TARGET_PRICE;
-        const result = (isBullWin || isBearWin) ? 'win' : 'lose';
-
-        // DEBUG: Sonucu konsola yazdır
-        console.log('Bull Win:', isBullWin);
-        console.log('Bear Win:', isBearWin);
-        console.log('Sonuç:', result);
-        console.log('======================');
-
-        // 2. İSTATİSTİKLERİ VE FİYATI GÜNCELLE
+        // 2. İSTATİSTİKLERİ VE FİYATI GÜNCELLE (Her durumda)
         setStats({
           correctCount,
           totalCount,
@@ -118,6 +78,56 @@ function FinalContent() {
           target: TARGET_PRICE,
           actual: Math.round(currentPrice * 100) / 100 // 2 ondalık basamak
         });
+
+        // B. KULLANICI OYU KONTROLÜ
+        const voteDataStr = localStorage.getItem('crowd-oracle-vote');
+        
+        if (!voteDataStr) {
+          // Oy yoksa -> İZLEYİCİ MODU (Spectator)
+          console.log('=== FINAL PAGE DEBUG ===');
+          console.log('Kullanıcı Oyu: YOK (Spectator Mode)');
+          console.log('Anlık Fiyat:', currentPrice);
+          console.log('Hedef Fiyat:', TARGET_PRICE);
+          console.log('Sonuç: spectator');
+          console.log('======================');
+          
+          setOutcome('spectator');
+          return;
+        }
+
+        // Oy varsa -> Parse et ve Win/Lose hesapla
+        let voteData;
+        try {
+          voteData = JSON.parse(voteDataStr);
+        } catch (error) {
+          console.error('localStorage parse hatası:', error);
+          // Parse hatası durumunda da spectator moduna geç
+          setOutcome('spectator');
+          return;
+        }
+
+        // vote formatını type formatına çevir
+        const userVote = {
+          type: voteData.vote === 'yes' ? 'bull' : 'bear',
+          method: voteData.method || 'logic'
+        };
+
+        // DEBUG: Konsola log ekle
+        console.log('=== FINAL PAGE DEBUG ===');
+        console.log('Kullanıcı Oyu:', userVote.type);
+        console.log('Anlık Fiyat:', currentPrice);
+        console.log('Hedef Fiyat:', TARGET_PRICE);
+
+        // 1. KAZANMA MANTIĞINI SIKILAŞTIR
+        const isBullWin = userVote.type === 'bull' && currentPrice >= TARGET_PRICE;
+        const isBearWin = userVote.type === 'bear' && currentPrice < TARGET_PRICE;
+        const result = (isBullWin || isBearWin) ? 'win' : 'lose';
+
+        // DEBUG: Sonucu konsola yazdır
+        console.log('Bull Win:', isBullWin);
+        console.log('Bear Win:', isBearWin);
+        console.log('Sonuç:', result);
+        console.log('======================');
 
         // Sonucu set et
         setOutcome(result);
