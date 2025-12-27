@@ -46,6 +46,9 @@ function MethodologyContent() {
             hint: error.hint,
             code: error.code
           });
+        } else {
+          // Başarılı olduğunda cookie ekle
+          document.cookie = "hasVoted=true; path=/; max-age=31536000";
         }
       } catch (error) {
         console.error('Supabase kayıt hatası:', error);
