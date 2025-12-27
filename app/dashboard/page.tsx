@@ -413,18 +413,18 @@ function DashboardContent() {
   // Başlık belirleme
   const getTitle = () => {
     if (vote === 'yes' && method === 'logic') {
-      return { prefix: 'SEN BİR', highlight: 'MANTIKLI BOĞA', suffix: 'SIN!', emoji: '🐂🧠' };
+      return { prefix: 'YOU ARE A', highlight: 'LOGICAL BULL', suffix: '!', emoji: '🐂🧠' };
     }
     if (vote === 'yes' && method === 'intuition') {
-      return { prefix: 'SEN BİR', highlight: 'SEZGİSEL BOĞA', suffix: 'SIN!', emoji: '🐂🔮' };
+      return { prefix: 'YOU ARE AN', highlight: 'INTUITIVE BULL', suffix: '!', emoji: '🐂🔮' };
     }
     if (vote === 'no' && method === 'logic') {
-      return { prefix: 'SEN BİR', highlight: 'MANTIKLI AYI', suffix: 'SIN!', emoji: '🐻🧠' };
+      return { prefix: 'YOU ARE A', highlight: 'LOGICAL BEAR', suffix: '!', emoji: '🐻🧠' };
     }
     if (vote === 'no' && method === 'intuition') {
-      return { prefix: 'SEN BİR', highlight: 'SEZGİSEL AYI', suffix: 'SIN!', emoji: '🐻🔮' };
+      return { prefix: 'YOU ARE AN', highlight: 'INTUITIVE BEAR', suffix: '!', emoji: '🐻🔮' };
     }
-    return { prefix: 'HENÜZ KARAR VERMEDİN', highlight: '', suffix: '', emoji: '' };
+    return { prefix: 'NO DECISION YET', highlight: '', suffix: '', emoji: '' };
   };
 
   const title = getTitle();
@@ -483,10 +483,10 @@ function DashboardContent() {
     if (!vote) return;
     
     // Paylaşım metni oluştur
-    const direction = vote === 'yes' ? 'ÜSTÜ' : 'ALTI';
-    const animal = vote === 'yes' ? 'BOĞA' : 'AYI';
+    const direction = vote === 'yes' ? 'ABOVE' : 'BELOW';
+    const animal = vote === 'yes' ? 'BULL' : 'BEAR';
     
-    const shareText = `1 Ocak ETH Tahminim: $3.000 ${direction}! (${animal}) 🚀 Acaba topluluğun çoğunluğu doğru mu bilecek? Sen de katıl: https://crowd-oracle.vercel.app`;
+    const shareText = `My Jan 1st ETH Prediction: $3,000 ${direction}! (${animal}) 🚀 Will the majority be right? Join: https://crowd-oracle.vercel.app`;
     
     // Warpcast compose URL'i
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(shareText)}`;
@@ -559,13 +559,13 @@ function DashboardContent() {
           <div className="bg-black/40 backdrop-blur-xl border border-cyan-500/30 rounded-3xl shadow-[0_0_60px_rgba(6,182,212,0.15)] p-10 flex flex-col items-center justify-center gap-6">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-cyan-400 border-l-transparent border-r-transparent shadow-[0_0_20px_#06b6d4]"></div>
             <p className="text-2xl font-black text-white tracking-wide drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-              Veriler Analiz Ediliyor...
+              Analyzing Data...
             </p>
             <div className="text-4xl md:text-6xl font-space font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 drop-shadow-[0_0_15px_rgba(6,182,212,0.5)]">
               %{progress}
             </div>
             <p className="text-xs font-space text-cyan-200/60 animate-pulse">
-              {progress <= 30 ? 'Blokzincir taranıyor...' : progress <= 60 ? 'Veriler doğrulanıyor...' : progress <= 90 ? 'Yapay zeka tahminleri işleniyor...' : 'Sonuçlar hazırlanıyor...'}
+              {progress <= 30 ? 'Scanning blockchain...' : progress <= 60 ? 'Validating data...' : progress <= 90 ? 'Processing AI predictions...' : 'Preparing results...'}
             </p>
           </div>
         </main>
@@ -580,7 +580,7 @@ function DashboardContent() {
         <div className="mb-4 w-full max-w-md">
           <div className="relative bg-black/20 backdrop-blur-sm border border-purple-500/20 rounded-full px-6 py-2 text-center shadow-[0_0_20px_rgba(168,85,247,0.1)] flex items-center justify-center gap-4">
             <h3 className="text-purple-300/70 text-[10px] tracking-[0.2em] uppercase font-bold hidden md:block">
-              BİTİŞE:
+              REVEAL IN:
             </h3>
             
             <div className="flex items-center gap-2 font-[var(--font-space)] text-lg md:text-xl text-white font-bold tracking-widest">
@@ -620,7 +620,7 @@ function DashboardContent() {
               
               return (
                 <>
-                  <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">KARAR MEKANİZMASI</p>
+                  <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">DECISION MECHANISM</p>
                   
                   {/* Bar Chart */}
                   <div className="relative w-full h-8 rounded-lg overflow-hidden mb-3">
@@ -638,11 +638,11 @@ function DashboardContent() {
                   
                   {/* Yüzde Yazıları */}
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-orange-400 font-black font-space">Mantık %{logicRate}</span>
-                    <span className="text-purple-400 font-black font-space">Sezgi %{intuitionRate}</span>
+                    <span className="text-orange-400 font-black font-space">Logic %{logicRate}</span>
+                    <span className="text-purple-400 font-black font-space">Intuition %{intuitionRate}</span>
                   </div>
                   
-                  <p className="text-xs text-white/40 mt-2 font-space">{realStats.totalVotes} oy</p>
+                  <p className="text-xs text-white/40 mt-2 font-space">{realStats.totalVotes} votes</p>
                 </>
               );
             })()}
@@ -650,11 +650,11 @@ function DashboardContent() {
 
           {/* Kutu 2: Senin Kabilen */}
           <div className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(124,58,237,0.1)] p-4 md:p-6 lg:p-8">
-            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">Senin Kabilen</p>
+            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">YOUR TRIBE</p>
             <p className="text-4xl md:text-6xl font-black text-yellow-400 font-space drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]">
               %{isNaN(realStats.tribePercentage) || !isFinite(realStats.tribePercentage) ? 0 : realStats.tribePercentage}
             </p>
-            <p className="text-xs text-white/40 mt-2">Kitle içinde seninle tıpatıp aynı düşünenlerin oranı</p>
+            <p className="text-xs text-white/40 mt-2">Ratio of the crowd that thinks exactly like you</p>
           </div>
         </div>
 
@@ -673,10 +673,10 @@ function DashboardContent() {
                   <>
                     <div className="flex items-center gap-2">
                       <span className="text-white/40 text-[10px] md:text-xs font-space uppercase tracking-[0.2em]">
-                        {activeData ? `GEÇMİŞ (${displayData.time})` : 'ŞU AN'}
+                        {activeData ? `PAST (${displayData.time})` : 'CURRENT'}
                       </span>
                       <span className="text-white/30 text-[10px] md:text-xs font-space">
-                        {displayData.totalVotes || 0} oy
+                        {displayData.totalVotes || 0} votes
                       </span>
                     </div>
                     <div className="flex items-center gap-4 mt-1">
@@ -685,7 +685,7 @@ function DashboardContent() {
                         <span className="text-4xl md:text-6xl font-black text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
                           %{displayData.bullRate}
                         </span>
-                        <span className="text-[10px] text-green-300/70 font-space tracking-widest uppercase">BOĞA</span>
+                        <span className="text-[10px] text-green-300/70 font-space tracking-widest uppercase">BULL</span>
                       </div>
                       
                       {/* AYIRICI ÇİZGİ */}
@@ -696,7 +696,7 @@ function DashboardContent() {
                         <span className="text-4xl md:text-6xl font-black text-red-500 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">
                           %{displayData.bearRate}
                         </span>
-                        <span className="text-[10px] text-red-300/70 font-space tracking-widest uppercase">AYI</span>
+                        <span className="text-[10px] text-red-300/70 font-space tracking-widest uppercase">BEAR</span>
                       </div>
                     </div>
                   </>
@@ -705,7 +705,7 @@ function DashboardContent() {
             </div>
           ) : (
             <div className="flex items-center justify-center h-64 md:h-96 text-white/40 text-sm font-space">
-              Henüz veri oluşmadı
+              No data yet
             </div>
           )}
 
@@ -784,7 +784,7 @@ function DashboardContent() {
                     <>
                       <div className="flex items-center gap-2">
                         <span className="text-white/40 text-[10px] md:text-xs font-space uppercase tracking-[0.2em]">
-                          {activeEthData ? `GEÇMİŞ (${displayEthData.time})` : 'ŞU AN'}
+                          {activeEthData ? `PAST (${displayEthData.time})` : 'CURRENT'}
                         </span>
                       </div>
                       <div className="flex items-center gap-4 mt-1">
@@ -793,7 +793,7 @@ function DashboardContent() {
                             ${currentPrice.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           </span>
                           <span className={`text-[10px] font-space tracking-widest uppercase ${isAboveTarget ? 'text-green-300/70' : 'text-red-300/70'}`}>
-                            ETH FİYAT
+                            ETH PRICE
                           </span>
                         </div>
                       </div>
@@ -803,7 +803,7 @@ function DashboardContent() {
               </div>
             ) : (
               <div className="flex items-center justify-center h-64 md:h-96 text-white/40 text-sm font-space">
-                Fiyat verisi yükleniyor...
+                Loading price data...
               </div>
             )}
 
@@ -898,7 +898,7 @@ function DashboardContent() {
             <div className="absolute -inset-1 bg-purple-500/30 rounded-3xl blur-lg opacity-20 group-hover:opacity-60 transition duration-500"></div>
             <div className="relative h-full bg-purple-950/50 backdrop-blur-sm border-2 border-purple-500 hover:border-purple-400 rounded-3xl flex items-center justify-center gap-2 md:gap-3 transition-all group-hover:scale-[1.02] group-hover:bg-purple-950/60">
               <span className="text-xl md:text-2xl filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">📢</span>
-              <span className="text-base md:text-lg lg:text-xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">Tahminimi Paylaş</span>
+              <span className="text-base md:text-lg lg:text-xl font-black text-white tracking-wider drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">Share My Prediction</span>
             </div>
           </button>
 
@@ -908,7 +908,7 @@ function DashboardContent() {
               type="text"
               value={suggestion}
               onChange={(e) => setSuggestion(e.target.value)}
-              placeholder="Bir sonraki soru ne olsun?"
+              placeholder="What should the next question be?"
               className="flex-1 px-3 md:px-4 h-12 md:h-14 bg-transparent border-b-2 border-white/20 text-white placeholder-white/30 focus:outline-none focus:border-purple-500 transition-colors font-space text-sm md:text-base"
             />
             <button 
@@ -918,7 +918,7 @@ function DashboardContent() {
               <div className="absolute -inset-1 bg-purple-500/30 rounded-3xl blur-lg opacity-20 group-hover:opacity-60 transition duration-500"></div>
               <div className="relative bg-purple-950/50 backdrop-blur-sm border-2 border-purple-500 hover:border-purple-400 rounded-3xl px-4 md:px-6 h-full flex items-center justify-center transition-all group-hover:scale-[1.02] group-hover:bg-purple-950/60">
                 <span className="text-white font-black font-space tracking-wider text-sm md:text-base">
-                  {status === 'success' ? 'Gönderildi ✅' : status === 'error' ? 'Hata!' : 'GÖNDER'}
+                  {status === 'success' ? 'Sent ✅' : status === 'error' ? 'Error!' : 'SEND'}
                 </span>
               </div>
             </button>
@@ -937,7 +937,7 @@ export default function DashboardPage() {
           <div className="bg-black/40 backdrop-blur-xl border border-cyan-500/30 rounded-3xl shadow-[0_0_60px_rgba(6,182,212,0.15)] p-10 flex flex-col items-center justify-center gap-6">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-cyan-400 border-l-transparent border-r-transparent shadow-[0_0_20px_#06b6d4]"></div>
             <p className="text-2xl font-black text-white tracking-wide drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-              Yükleniyor...
+              Loading...
             </p>
           </div>
         </main>
