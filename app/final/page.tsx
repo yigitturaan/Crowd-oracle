@@ -15,6 +15,7 @@ function FinalContent() {
   const [outcome, setOutcome] = useState<'win' | 'lose' | 'spectator' | 'loading'>('loading');
   const [stats, setStats] = useState({ correctCount: 0, totalCount: 0, percentage: 0 });
   const [prices, setPrices] = useState({ target: TARGET_PRICE, actual: 0 });
+  const [userVote, setUserVote] = useState<{ type: 'bull' | 'bear' } | null>(null);
 
   // VERİ ÇEKME (useEffect - async)
   useEffect(() => {
@@ -91,6 +92,7 @@ function FinalContent() {
           console.log('Sonuç: spectator');
           console.log('======================');
           
+          setUserVote(null);
           setOutcome('spectator');
           return;
         }
@@ -102,25 +104,30 @@ function FinalContent() {
         } catch (error) {
           console.error('localStorage parse hatası:', error);
           // Parse hatası durumunda da spectator moduna geç
+          setUserVote(null);
           setOutcome('spectator');
           return;
         }
 
         // vote formatını type formatına çevir
-        const userVote = {
-          type: voteData.vote === 'yes' ? 'bull' : 'bear',
+        const voteType: 'bull' | 'bear' = voteData.vote === 'yes' ? 'bull' : 'bear';
+        const parsedUserVote = {
+          type: voteType,
           method: voteData.method || 'logic'
         };
 
+        // userVote state'ini set et
+        setUserVote({ type: voteType });
+
         // DEBUG: Konsola log ekle
         console.log('=== FINAL PAGE DEBUG ===');
-        console.log('Kullanıcı Oyu:', userVote.type);
+        console.log('Kullanıcı Oyu:', parsedUserVote.type);
         console.log('Anlık Fiyat:', currentPrice);
         console.log('Hedef Fiyat:', TARGET_PRICE);
 
         // 1. KAZANMA MANTIĞINI SIKILAŞTIR
-        const isBullWin = userVote.type === 'bull' && currentPrice >= TARGET_PRICE;
-        const isBearWin = userVote.type === 'bear' && currentPrice < TARGET_PRICE;
+        const isBullWin = parsedUserVote.type === 'bull' && currentPrice >= TARGET_PRICE;
+        const isBearWin = parsedUserVote.type === 'bear' && currentPrice < TARGET_PRICE;
         const result = (isBullWin || isBearWin) ? 'win' : 'lose';
 
         // DEBUG: Sonucu konsola yazdır
@@ -152,6 +159,7 @@ function FinalContent() {
       outcome={outcome} 
       stats={stats}
       prices={prices}
+      userVote={userVote}
       onButtonClick={handleButtonClick} 
     />
   );
