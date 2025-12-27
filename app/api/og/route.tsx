@@ -59,13 +59,13 @@ export async function GET(request: Request) {
             marginBottom: 20,
             zIndex: 10,
           }}>
-            {isWin ? 'KEHANET DOĞRULANDI' : 'GERÇEKLİK SAPMASI'}
+            {isWin ? 'PROPHECY FULFILLED' : 'REALITY GLITCH'}
           </div>
 
           {/* FİYAT BİLGİSİ */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 10 }}>
             <div style={{ fontSize: 30, color: '#a1a1aa', textTransform: 'uppercase', letterSpacing: '4px' }}>
-              1 Ocak ETH Fiyatı
+              Jan 1st ETH Price
             </div>
             <div style={{ fontSize: 90, fontWeight: 'bold', color: 'white', marginTop: 10 }}>
               ${price}
