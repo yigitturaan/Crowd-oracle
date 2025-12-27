@@ -15,6 +15,7 @@ export default function WinPage() {
         target: 3000,
         actual: 3250.50
       }}
+      userVote={{ type: 'bull' }}
     />
   );
 }
