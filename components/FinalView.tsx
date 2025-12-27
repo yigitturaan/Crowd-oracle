@@ -14,6 +14,7 @@ interface FinalViewProps {
     target: number;
     actual: number;
   };
+  userVote?: { type: 'bull' | 'bear' } | null;
   onButtonClick?: () => void;
 }
 
@@ -21,6 +22,7 @@ export default function FinalView({
   outcome, 
   stats = { correctCount: 0, totalCount: 0, percentage: 0 },
   prices = { target: 3000, actual: 2850 },
+  userVote = null,
   onButtonClick 
 }: FinalViewProps) {
   // Fiyat formatı
@@ -127,6 +129,19 @@ export default function FinalView({
               <h1 className="text-4xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_40px_rgba(234,179,8,0.9)] text-center">
                 KEHANET DOĞRULANDI.
               </h1>
+              {/* Kullanıcı Tercihi Etiketi */}
+              {userVote && userVote.type && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="backdrop-blur-md bg-white/5 border border-white/10 rounded-full px-6 py-2 mt-4 mx-auto w-fit"
+                >
+                  <span className="text-white/80 text-sm md:text-base font-medium font-space">
+                    TERCİHİN: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BOĞA' : 'AYI'}
+                  </span>
+                </motion.div>
+              )}
             </div>
           </motion.div>
 
@@ -348,6 +363,19 @@ export default function FinalView({
             <h1 className="text-4xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_40px_rgba(239,68,68,0.9)] text-center glitch-text-severe">
               SİNYAL HATASI.
             </h1>
+            {/* Kullanıcı Tercihi Etiketi */}
+            {userVote && userVote.type && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="backdrop-blur-md bg-white/5 border border-white/10 rounded-full px-6 py-2 mt-4 mx-auto w-fit"
+              >
+                <span className="text-white/80 text-sm md:text-base font-medium font-space">
+                  TERCİHİN: {userVote.type === 'bull' ? '🐂' : '🐻'} {userVote.type === 'bull' ? 'BOĞA' : 'AYI'}
+                </span>
+              </motion.div>
+            )}
           </div>
         </motion.div>
 
