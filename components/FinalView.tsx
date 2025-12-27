@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import Background from '@/components/ui/background';
 
 interface FinalViewProps {
-  outcome: 'win' | 'lose' | 'loading';
+  outcome: 'win' | 'lose' | 'spectator' | 'loading';
   stats?: {
     correctCount: number;
     totalCount: number;
@@ -41,8 +41,11 @@ export default function FinalView({
     let message = '';
     if (outcome === 'win') {
       message = `Crowd Oracle konuşuyor: Geleceği gördüm ve haklı çıktım. ETH $${prices.actual} oldu! 🔮 #CrowdOracle`;
-    } else {
+    } else if (outcome === 'lose') {
       message = `Crowd Oracle'da sinyaller karıştı... ETH $${prices.actual} oldu. Bir dahaki sefere. 🥀 #CrowdOracle`;
+    } else {
+      // Spectator veya diğer durumlar için gizemli mesaj (fiyat yok)
+      message = `Crowd Oracle konuştu. Gerçek ortaya çıktı. Peki senin öngörün tuttu mu? 👁️🔮 #CrowdOracle`;
     }
 
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(message)}&embeds[]=${encodeURIComponent(imageUrl)}`;
@@ -188,6 +191,114 @@ export default function FinalView({
                 className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(234,179,8,0.6)] hover:shadow-[0_0_80px_rgba(234,179,8,1)] hover:from-yellow-400 hover:to-amber-400 transition-all duration-300 hover:scale-105 active:scale-95"
               >
                 ZAFERİ PAYLAŞ 🏆
+              </button>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    );
+  }
+
+  // SPECTATOR durumu (İzleyici Modu)
+  if (outcome === 'spectator') {
+    return (
+      <div className="min-h-screen bg-transparent flex flex-col relative z-10 overflow-hidden">
+        {/* KATMAN 1: ARKA PLAN & MİSTİK EFEKTLER (Z-0) */}
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <Background />
+          
+          {/* Mor/Mavi Nebula Efekti - Derin uzay hissi */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center animate-rotate-slow"
+            style={{
+              background: 'conic-gradient(from 0deg at center, transparent 0deg, rgba(124, 58, 237, 0.3) 60deg, transparent 120deg, rgba(59, 130, 246, 0.2) 180deg, transparent 240deg, rgba(124, 58, 237, 0.3) 300deg, transparent 360deg)',
+            }}
+          ></div>
+
+          {/* Nebula Bloom efekti - Gözün merkezinden yayılan mistik parlaklık */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: 'radial-gradient(circle at center, rgba(124, 58, 237, 0.4) 0%, rgba(59, 130, 246, 0.3) 20%, rgba(124, 58, 237, 0.2) 40%, transparent 70%)',
+            }}
+          >
+            <div className="w-[800px] h-[450px] border-[2px] border-purple-400/60 rounded-[100%] drop-shadow-[0_0_150px_rgba(124,58,237,0.6)] animate-pulse"></div>
+          </div>
+
+          {/* Köşelerde mor/mavi nebula parçacıkları */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        </div>
+
+        {/* KATMAN 2: PARÇALANMIŞ UI (Z-10) */}
+        <div className="relative z-10 min-h-screen flex flex-col">
+          
+          {/* A. ÜST KISIM - Başlık Adası */}
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="w-full px-4 pt-8 md:pt-12"
+          >
+            <div className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-7xl font-black bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent drop-shadow-[0_0_40px_rgba(124,58,237,0.9)] text-center">
+                KEHANET TAMAMLANDI.
+              </h1>
+            </div>
+          </motion.div>
+
+          {/* B. ORTA KISIM - Gözün Sahnesi (BOŞ) */}
+          <div className="flex-1 flex items-center justify-center">
+            {/* Göz burada görünecek, içerik yok */}
+          </div>
+
+          {/* C. ALT KISIM - Bilgi Adaları (Sadece Genel İstatistikler) */}
+          <div className="w-full px-4 pb-8 md:pb-12">
+            <div className="max-w-6xl mx-auto">
+              
+              {/* Alt Metin Adası */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 mb-4 md:mb-6"
+              >
+                <p className="text-lg md:text-2xl text-white/90 font-medium font-space leading-relaxed text-center">
+                  Sen sessizliği seçtin, ama evren konuştu.
+                </p>
+              </motion.div>
+
+              {/* İstatistik Adası (Kişisel veri yok, sadece genel) */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="bg-black/40 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+              >
+                <p className="text-sm md:text-base text-white/90 font-medium font-space leading-relaxed text-center">
+                  Kahinlerin <span className="text-purple-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+                </p>
+              </motion.div>
+
+            </div>
+          </div>
+
+          {/* D. EN ALT - Buton */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="w-full px-4 pb-8 md:pb-12"
+          >
+            <div className="max-w-2xl mx-auto">
+              <button
+                onClick={handleShare}
+                className="w-full py-4 md:py-5 rounded-2xl border-2 border-purple-500/50 bg-purple-950/20 backdrop-blur-sm text-purple-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_40px_rgba(124,58,237,0.4)] hover:border-purple-400 hover:bg-purple-950/30 hover:shadow-[0_0_60px_rgba(124,58,237,0.8)] hover:text-purple-300 transition-all duration-300 hover:scale-105 active:scale-95"
+              >
+                SONUCU PAYLAŞ 🔮
               </button>
             </div>
           </motion.div>
