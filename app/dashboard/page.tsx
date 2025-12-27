@@ -486,7 +486,7 @@ function DashboardContent() {
     const direction = vote === 'yes' ? 'ABOVE' : 'BELOW';
     const animal = vote === 'yes' ? 'BULL' : 'BEAR';
     
-    const shareText = `My Jan 1st ETH Prediction: $3,000 ${direction}! (${animal}) 🚀 Will the majority be right? Join: https://crowd-oracle.vercel.app`;
+    const shareText = `My Jan 1st ETH Prediction: $3,000 ${direction}! (${animal}) 🚀 Will the majority be right? Join: https://farcaster.xyz/miniapps/2S48OqhLgh73/crowd-oracle`;
     
     // Warpcast compose URL'i
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(shareText)}`;

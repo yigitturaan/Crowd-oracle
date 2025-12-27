@@ -40,14 +40,16 @@ export default function FinalView({
     const baseUrl = window.location.origin;
     const imageUrl = `${baseUrl}/api/og?outcome=${outcome}&price=${prices.actual}`;
     
+    const miniappUrl = 'https://farcaster.xyz/miniapps/2S48OqhLgh73/crowd-oracle';
+    
     let message = '';
     if (outcome === 'win') {
-      message = `Aligned with the Eye. My prophecy was fulfilled and the future took shape as I saw it. 👁️✨ Did your vision hold true? #CrowdOracle`;
+      message = `Aligned with the Eye. My prophecy was fulfilled and the future took shape as I saw it. 👁️✨ Did your vision hold true? ${miniappUrl} #CrowdOracle`;
     } else if (outcome === 'lose') {
-      message = `Reality deviation detected... Signals crossed. The universe had a different plan today. 🥀 What is your result? #CrowdOracle`;
+      message = `Reality deviation detected... Signals crossed. The universe had a different plan today. 🥀 What is your result? ${miniappUrl} #CrowdOracle`;
     } else {
       // Spectator or other states - mysterious message
-      message = `The Great Prophecy is complete. I chose to watch in silence, but the Eye saw everything. 🔮 The truth is out. #CrowdOracle`;
+      message = `The Great Prophecy is complete. I chose to watch in silence, but the Eye saw everything. 🔮 The truth is out. ${miniappUrl} #CrowdOracle`;
     }
 
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(message)}&embeds[]=${encodeURIComponent(imageUrl)}`;
