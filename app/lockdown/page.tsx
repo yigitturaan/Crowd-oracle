@@ -338,15 +338,30 @@ export default function LockdownPage() {
         
         {/* 1. EN ÜST: Kullanıcının Oyu & Başlık */}
         <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.2)] p-6">
-          <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">SENİN OYUN</p>
-          <h2 className={`text-3xl md:text-5xl font-black ${userVoteInfo.color} mb-4 drop-shadow-[0_0_10px_currentColor]`}>
-            {userVoteInfo.text}
-          </h2>
-          <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-4">
-            OYLAMA BİTTİ. SONUÇLAR BEKLENİYOR.
-          </h1>
+          {/* EĞER OY VARSA: "Sen Bir X'sin" kartını göster */}
+          {userVote && userVote.vote && userVote.method ? (
+            <>
+              <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-2">SENİN OYUN</p>
+              <h2 className={`text-3xl md:text-5xl font-black ${userVoteInfo.color} mb-4 drop-shadow-[0_0_10px_currentColor]`}>
+                {userVoteInfo.text}
+              </h2>
+              <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight mb-4">
+                OYLAMA BİTTİ. SONUÇLAR BEKLENİYOR.
+              </h1>
+            </>
+          ) : (
+            /* EĞER OY YOKSA: "Kapılar Kapandı" mesajı */
+            <>
+              <h1 className="text-2xl md:text-4xl font-black text-white tracking-tight mb-2">
+                KAPILAR KAPANDI.
+              </h1>
+              <p className="text-base md:text-lg text-white/70 font-medium font-space mb-4">
+                Kehanet süreci başladı. Artık sadece izleyebilirsin.
+              </p>
+            </>
+          )}
           
-          {/* Geri Sayım Sayacı */}
+          {/* Geri Sayım Sayacı (Her durumda göster) */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.2)] p-4 md:p-6 mt-4">
             <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-3 text-center">
               SONUÇLARIN AÇIKLANMASINA
