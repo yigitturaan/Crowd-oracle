@@ -55,219 +55,224 @@ export default function FinalView({
   // WIN durumu
   if (outcome === 'win') {
     return (
-      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8 relative z-10 overflow-hidden">
-        <Background />
-        
-        {/* İLAHİ PATLAMA - Altın Efektler */}
-        {/* Dönen altın hareler */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-yellow-400/20 rounded-full blur-3xl animate-spin-slow"></div>
-          <div className="absolute top-3/4 right-1/4 w-80 h-80 bg-amber-400/20 rounded-full blur-3xl animate-spin-slow" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute bottom-1/4 left-1/2 w-72 h-72 bg-yellow-300/20 rounded-full blur-3xl animate-spin-slow" style={{ animationDelay: '2s' }}></div>
-        </div>
-
-        {/* Uçuşan altın parçacıklar */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(20)].map((_, i) => {
-            const randomX = Math.random() * 100;
-            const randomDelay = Math.random() * 2;
-            const randomDuration = Math.random() * 3 + 2;
-            return (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 bg-yellow-400 rounded-full"
-                initial={{
-                  x: `${randomX}%`,
-                  y: '100vh',
-                  opacity: 0,
-                }}
-                animate={{
-                  y: '-10vh',
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: randomDuration,
-                  repeat: Infinity,
-                  delay: randomDelay,
-                }}
-              />
-            );
-          })}
-        </div>
-
-        {/* Parlayan göz efekti */}
-        <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-          <div className="w-[800px] h-[450px] border-[2px] border-yellow-400/80 rounded-[100%] drop-shadow-[0_0_100px_rgba(234,179,8,0.8)] animate-pulse"></div>
-        </div>
-
-        {/* Ana İçerik - Ghost Glass Panel */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 w-full max-w-2xl bg-black/30 backdrop-blur-2xl border border-yellow-400/30 rounded-3xl p-8 md:p-12 shadow-[0_0_60px_rgba(234,179,8,0.3)]"
-        >
-          {/* A. BAŞLIK */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center mb-8"
+      <div className="min-h-screen bg-transparent flex flex-col relative z-10 overflow-hidden">
+        {/* KATMAN 1: ARKA PLAN & COŞKU EFEKTLERİ (Z-0) */}
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <Background />
+          
+          {/* Gözün merkezinden yayılan altın ışık huzmesi */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: 'radial-gradient(circle at center, rgba(234, 179, 8, 0.4) 0%, rgba(234, 179, 8, 0.2) 30%, transparent 60%)',
+            }}
           >
-            <h1 className="text-5xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_30px_rgba(234,179,8,0.8)] mb-4">
-              ZAFER SENİN.
-            </h1>
-          </motion.div>
+            <div className="w-[800px] h-[450px] border-[2px] border-yellow-400/90 rounded-[100%] drop-shadow-[0_0_150px_rgba(234,179,8,0.9)] animate-pulse"></div>
+          </div>
 
-          {/* B. FİYAT KARŞILAŞTIRMASI */}
+          {/* Köşelerde altın parçacık efektleri */}
+          <div className="absolute top-0 left-0 w-96 h-96 bg-yellow-400/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-amber-300/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        </div>
+
+        {/* KATMAN 2: PARÇALANMIŞ UI (Z-10) */}
+        <div className="relative z-10 min-h-screen flex flex-col">
+          
+          {/* A. ÜST KISIM - Başlık Adası */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-8 space-y-3"
+            transition={{ duration: 0.8 }}
+            className="w-full px-4 pt-8 md:pt-12"
           >
-            <div className="text-center">
-              <p className="text-sm text-gray-400 font-space uppercase tracking-wider mb-2">
-                HEDEF: {formatPrice(prices.target)}
-              </p>
-              <div className="h-px bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent my-4"></div>
-              <p className="text-3xl md:text-5xl font-black text-green-400 drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]">
-                1 OCAK FİYATI: {formatPrice(prices.actual)}
-              </p>
+            <div className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
+              <h1 className="text-4xl md:text-7xl font-black text-yellow-400 drop-shadow-[0_0_30px_rgba(234,179,8,0.8)] text-center">
+                KEHANET DOĞRULANDI.
+              </h1>
             </div>
           </motion.div>
 
-          {/* C. İSTATİSTİK METNİ */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-center mb-8 space-y-2"
-          >
-            <p className="text-lg md:text-xl text-white/80 font-space leading-relaxed">
-              <span className="text-yellow-400 font-black">{stats.totalCount}</span> Kahin arasından sadece{' '}
-              <span className="text-yellow-400 font-black">{stats.correctCount}</span> kişi gerçeği gördü.
-            </p>
-            <p className="text-xl md:text-2xl text-yellow-300 font-black">
-              Sen, <span className="text-yellow-400">{stats.percentage}%</span>'lik o seçilmiş azınlıktasın.
-            </p>
-          </motion.div>
+          {/* B. ORTA KISIM - Gözün Sahnesi (BOŞ) */}
+          <div className="flex-1 flex items-center justify-center">
+            {/* Göz burada görünecek, içerik yok */}
+          </div>
 
-          {/* D. AKSİYON BUTONU */}
-          <motion.button
+          {/* C. ALT KISIM - Bilgi Adaları */}
+          <div className="w-full px-4 pb-8 md:pb-12">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              
+              {/* SOL ADA - Fiyat & Gerçek */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+              >
+                <h2 className="text-sm md:text-base text-white/60 font-space uppercase tracking-wider mb-4">
+                  1 OCAK GERÇEĞİ
+                </h2>
+                <div className="space-y-2">
+                  <p className="text-xs md:text-sm text-gray-400 font-space">
+                    Hedef: {formatPrice(prices.target)}
+                  </p>
+                  <div className="h-px bg-gradient-to-r from-transparent via-yellow-400/30 to-transparent my-3"></div>
+                  <p className="text-2xl md:text-4xl font-black text-green-400 drop-shadow-[0_0_20px_rgba(34,197,94,0.6)]">
+                    {formatPrice(prices.actual)}
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* SAĞ ADA - İstatistik */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+              >
+                <p className="text-sm md:text-base text-white/80 font-space leading-relaxed mb-2">
+                  Kahinlerin <span className="text-yellow-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+                </p>
+                <p className="text-lg md:text-xl text-yellow-300 font-black drop-shadow-[0_0_10px_rgba(234,179,8,0.5)]">
+                  Sen seçilmişlerdensin.
+                </p>
+              </motion.div>
+
+            </div>
+          </div>
+
+          {/* D. EN ALT - Buton */}
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            onClick={onButtonClick}
-            className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_50px_rgba(234,179,8,0.8)] transition-all duration-300 hover:scale-105"
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="w-full px-4 pb-8 md:pb-12"
           >
-            ZAFERİMİ PAYLAŞ 🏆
-          </motion.button>
-        </motion.div>
+            <div className="max-w-2xl mx-auto">
+              <button
+                onClick={onButtonClick}
+                className="w-full py-4 md:py-5 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-500 text-[#0f172a] font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(234,179,8,0.5)] hover:shadow-[0_0_50px_rgba(234,179,8,0.8)] transition-all duration-300 hover:scale-105"
+              >
+                ZAFERİ PAYLAŞ 🏆
+              </button>
+            </div>
+          </motion.div>
 
-        <style jsx>{`
-          @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          .animate-spin-slow {
-            animation: spin-slow 20s linear infinite;
-          }
-        `}</style>
+        </div>
       </div>
     );
   }
 
   // LOSE durumu
   return (
-    <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8 relative z-10 overflow-hidden">
-      <Background />
-      
-      {/* SİSTEM ÇÖKÜŞÜ - Kırmızı Efektler */}
-      {/* Yanıp sönen kırmızı ışıklar */}
-      <div className="absolute inset-0 pointer-events-none">
+    <div className="min-h-screen bg-transparent flex flex-col relative z-10 overflow-hidden">
+      {/* KATMAN 1: ARKA PLAN & COŞKU EFEKTLERİ (Z-0) */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <Background />
+        
+        {/* Gözün glitch efekti */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[800px] h-[450px] border-[2px] border-red-500/80 rounded-[100%] drop-shadow-[0_0_150px_rgba(239,68,68,0.9)] animate-glitch-severe"></div>
+        </div>
+
+        {/* Kırmızı yanıp sönen ışıklar */}
         <div className="absolute top-0 left-0 w-full h-full bg-red-500/10 animate-pulse-red"></div>
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-red-600/30 rounded-full blur-2xl animate-pulse-red" style={{ animationDelay: '0.5s' }}></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-red-700/30 rounded-full blur-2xl animate-pulse-red" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-600/30 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '0.5s' }}></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-700/30 rounded-full blur-3xl animate-pulse-red" style={{ animationDelay: '1s' }}></div>
+
+        {/* Noise overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.2]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        ></div>
       </div>
 
-      {/* Noise Overlay */}
-      <div 
-        className="absolute inset-0 opacity-[0.15] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      ></div>
-
-      {/* Titreyen göz efekti */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-        <div className="w-[800px] h-[450px] border-[2px] border-red-500/80 rounded-[100%] drop-shadow-[0_0_100px_rgba(239,68,68,0.8)] animate-glitch-severe"></div>
-      </div>
-
-      {/* Ana İçerik - Ghost Glass Panel */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-2xl bg-black/30 backdrop-blur-2xl border border-red-500/30 rounded-3xl p-8 md:p-12 shadow-[0_0_60px_rgba(239,68,68,0.3)]"
-      >
-        {/* A. BAŞLIK */}
+      {/* KATMAN 2: PARÇALANMIŞ UI (Z-10) */}
+      <div className="relative z-10 min-h-screen flex flex-col">
+        
+        {/* A. ÜST KISIM - Başlık Adası */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center mb-8"
+          transition={{ duration: 0.8 }}
+          className="w-full px-4 pt-8 md:pt-12"
         >
-          <h1 className="text-5xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_30px_rgba(239,68,68,0.8)] mb-4 glitch-text-severe">
-            SİNYAL KAYBI.
-          </h1>
-        </motion.div>
-
-        {/* B. FİYAT KARŞILAŞTIRMASI */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-8 space-y-3"
-        >
-          <div className="text-center">
-            <p className="text-sm text-gray-400 font-space uppercase tracking-wider mb-2">
-              HEDEF: {formatPrice(prices.target)}
-            </p>
-            <div className="h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent my-4"></div>
-            <p className="text-3xl md:text-5xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">
-              1 OCAK FİYATI: {formatPrice(prices.actual)}
-            </p>
+          <div className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6 max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-7xl font-black text-red-500 drop-shadow-[0_0_30px_rgba(239,68,68,0.8)] text-center glitch-text-severe">
+              SİNYAL HATASI.
+            </h1>
           </div>
         </motion.div>
 
-        {/* C. İSTATİSTİK METNİ */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="text-center mb-8 space-y-2"
-        >
-          <p className="text-lg md:text-xl text-white/80 font-space leading-relaxed">
-            <span className="text-red-400 font-black">{stats.totalCount}</span> Kahin arasından sadece{' '}
-            <span className="text-red-400 font-black">{stats.correctCount}</span> kişi gerçeği gördü.
-          </p>
-          <p className="text-xl md:text-2xl text-red-300 font-black">
-            Topluluğun <span className="text-red-400">{100 - stats.percentage}%</span>'si ile birlikte yanıldın.
-          </p>
-        </motion.div>
+        {/* B. ORTA KISIM - Gözün Sahnesi (BOŞ) */}
+        <div className="flex-1 flex items-center justify-center">
+          {/* Göz burada görünecek, içerik yok */}
+        </div>
 
-        {/* D. AKSİYON BUTONU */}
-        <motion.button
+        {/* C. ALT KISIM - Bilgi Adaları */}
+        <div className="w-full px-4 pb-8 md:pb-12">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            
+            {/* SOL ADA - Fiyat & Gerçek */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+            >
+              <h2 className="text-sm md:text-base text-white/60 font-space uppercase tracking-wider mb-4">
+                1 OCAK GERÇEĞİ
+              </h2>
+              <div className="space-y-2">
+                <p className="text-xs md:text-sm text-gray-400 font-space">
+                  Hedef: {formatPrice(prices.target)}
+                </p>
+                <div className="h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent my-3"></div>
+                <p className="text-2xl md:text-4xl font-black text-red-400 drop-shadow-[0_0_20px_rgba(239,68,68,0.6)]">
+                  {formatPrice(prices.actual)}
+                </p>
+              </div>
+            </motion.div>
+
+            {/* SAĞ ADA - İstatistik */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="bg-black/10 backdrop-blur-sm border border-white/5 rounded-2xl p-4 md:p-6"
+            >
+              <p className="text-sm md:text-base text-white/80 font-space leading-relaxed mb-2">
+                Kahinlerin <span className="text-red-400 font-black">{stats.percentage}%</span>'i gerçeği gördü.
+              </p>
+              <p className="text-lg md:text-xl text-red-300 font-black drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+                Çoğunluk yanıldı.
+              </p>
+            </motion.div>
+
+          </div>
+        </div>
+
+        {/* D. EN ALT - Buton */}
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          onClick={onButtonClick}
-          className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:border-red-400 hover:bg-red-950/30 transition-all duration-300 hover:scale-105"
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="w-full px-4 pb-8 md:pb-12"
         >
-          SONUCU PAYLAŞ 💀
-        </motion.button>
-      </motion.div>
+          <div className="max-w-2xl mx-auto">
+            <button
+              onClick={onButtonClick}
+              className="w-full py-4 md:py-5 rounded-2xl border-2 border-red-500/50 bg-red-950/20 backdrop-blur-sm text-red-400 font-black text-lg md:text-xl tracking-wider shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:border-red-400 hover:bg-red-950/30 transition-all duration-300 hover:scale-105"
+            >
+              SONUCU PAYLAŞ 💀
+            </button>
+          </div>
+        </motion.div>
+
+      </div>
 
       <style jsx>{`
         @keyframes pulse-red {
@@ -367,4 +372,3 @@ export default function FinalView({
     </div>
   );
 }
-
