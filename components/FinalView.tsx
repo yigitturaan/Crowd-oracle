@@ -40,12 +40,12 @@ export default function FinalView({
     
     let message = '';
     if (outcome === 'win') {
-      message = `Crowd Oracle konuşuyor: Geleceği gördüm ve haklı çıktım. ETH $${prices.actual} oldu! 🔮 #CrowdOracle`;
+      message = `Göz ile hizalandım. Kehanetim doğrulandı ve gelecek benim gördüğüm gibi şekillendi. 👁️✨ Peki senin öngörün tuttu mu? #CrowdOracle`;
     } else if (outcome === 'lose') {
-      message = `Crowd Oracle'da sinyaller karıştı... ETH $${prices.actual} oldu. Bir dahaki sefere. 🥀 #CrowdOracle`;
+      message = `Gerçeklikte bir sapma tespit edildi... Sinyaller karıştı. Evren bugün benden farklı düşündü. 🥀 Senin sonucun ne? #CrowdOracle`;
     } else {
-      // Spectator veya diğer durumlar için gizemli mesaj (fiyat yok)
-      message = `Crowd Oracle konuştu. Gerçek ortaya çıktı. Peki senin öngörün tuttu mu? 👁️🔮 #CrowdOracle`;
+      // Spectator veya diğer durumlar için gizemli mesaj
+      message = `Büyük Kehanet tamamlandı. Ben sessizce izlemeyi seçtim, ama Göz her şeyi gördü. 🔮 Gerçek ortaya çıktı. #CrowdOracle`;
     }
 
     const warpcastUrl = `https://warpcast.com/~/compose?text=${encodeURIComponent(message)}&embeds[]=${encodeURIComponent(imageUrl)}`;
