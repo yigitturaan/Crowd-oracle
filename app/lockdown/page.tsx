@@ -639,42 +639,42 @@ export default function LockdownPage() {
 
           {/* Karar Mekanizması Detayı */}
           <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(0,0,0,0.2)] p-4 md:p-6">
-            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">KARAR MEKANİZMASI DETAYI</p>
+            <p className="text-[10px] md:text-xs text-white/40 uppercase tracking-[0.2em] font-space mb-4">DECISION MECHANISM DETAILS</p>
             
             {/* Mantıklı Düşünenler */}
             <div className="mb-4">
-              <p className="text-xs text-orange-300/80 font-space mb-2">MANTIKLI DÜŞÜNENLER</p>
+              <p className="text-xs text-orange-300/80 font-space mb-2">LOGICAL THINKERS</p>
               <div className="relative w-full h-8 rounded-lg overflow-hidden mb-2">
                 <div 
                   className="absolute left-0 top-0 h-full bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500 flex items-center justify-start pl-3"
                   style={{ width: `${stats.logicBulls}%` }}
                 >
-                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.logicBulls} Yükselir</span>
+                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.logicBulls} BULLISH</span>
                 </div>
                 <div 
                   className="absolute right-0 top-0 h-full bg-gradient-to-r from-orange-600 to-red-500 transition-all duration-500 flex items-center justify-end pr-3"
                   style={{ width: `${stats.logicBears}%` }}
                 >
-                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.logicBears} Düşer</span>
+                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.logicBears} BEARISH</span>
                 </div>
               </div>
             </div>
 
             {/* Hislerine Güvenenler */}
             <div>
-              <p className="text-xs text-purple-300/80 font-space mb-2">HİSLERİNE GÜVENENLER</p>
+              <p className="text-xs text-purple-300/80 font-space mb-2">INTUITIVE THINKERS</p>
               <div className="relative w-full h-8 rounded-lg overflow-hidden mb-2">
                 <div 
                   className="absolute left-0 top-0 h-full bg-gradient-to-r from-green-400 to-emerald-500 transition-all duration-500 flex items-center justify-start pl-3"
                   style={{ width: `${stats.intuitionBulls}%` }}
                 >
-                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.intuitionBulls} Yükselir</span>
+                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.intuitionBulls} BULLISH</span>
                 </div>
                 <div 
                   className="absolute right-0 top-0 h-full bg-gradient-to-r from-pink-500 to-purple-600 transition-all duration-500 flex items-center justify-end pr-3"
                   style={{ width: `${stats.intuitionBears}%` }}
                 >
-                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.intuitionBears} Düşer</span>
+                  <span className="text-xs font-black text-white drop-shadow-md">%{stats.intuitionBears} BEARISH</span>
                 </div>
               </div>
             </div>
@@ -688,7 +688,7 @@ export default function LockdownPage() {
               type="text"
               value={suggestion}
               onChange={(e) => setSuggestion(e.target.value)}
-              placeholder="Bir sonraki soru ne olsun?"
+              placeholder="Suggest the next prophecy..."
               className="flex-1 px-3 md:px-4 h-12 md:h-14 bg-transparent border-b-2 border-white/20 text-white placeholder-white/30 focus:outline-none focus:border-purple-500 transition-colors font-space text-sm md:text-base"
             />
             <button 
@@ -698,7 +698,7 @@ export default function LockdownPage() {
               <div className="absolute -inset-1 bg-purple-500/30 rounded-3xl blur-lg opacity-20 group-hover:opacity-60 transition duration-500"></div>
               <div className="relative bg-purple-950/50 backdrop-blur-sm border-2 border-purple-500 hover:border-purple-400 rounded-3xl px-4 md:px-6 h-full flex items-center justify-center transition-all group-hover:scale-[1.02] group-hover:bg-purple-950/60">
                 <span className="text-white font-black font-space tracking-wider text-sm md:text-base">
-                  {status === 'success' ? 'Gönderildi ✅' : status === 'error' ? 'Hata!' : 'GÖNDER'}
+                  {status === 'success' ? 'Sent ✅' : status === 'error' ? 'Error!' : 'SEND'}
                 </span>
               </div>
             </button>
