@@ -39,7 +39,7 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-transparent flex flex-col items-center justify-center px-4 py-8">
         <main className="w-full max-w-md flex flex-col items-center gap-8">
-          <p className="text-gray-400">Yükleniyor...</p>
+          <p className="text-gray-400">Loading...</p>
         </main>
       </div>
     );
@@ -50,7 +50,7 @@ export default function Home() {
       <main className="flex flex-col items-center justify-center min-h-screen text-center px-4 bg-transparent">
         {/* Başlık */}
         <h1 className="max-w-4xl mx-auto text-6xl md:text-8xl font-black tracking-tighter leading-none bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
-          GELECEĞİ GÖREBİLİYOR MUSUN?
+          CAN YOU SEE THE FUTURE?
         </h1>
 
         {/* İhtişamlı Buton */}
@@ -58,7 +58,7 @@ export default function Home() {
           href="/vote"
           className="mt-12 py-6 px-12 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-bold text-2xl shadow-[0_0_40px_rgba(168,85,247,0.7)] hover:scale-105 hover:shadow-[0_0_60px_rgba(168,85,247,0.9)] transition-all duration-300 text-center"
         >
-          KEHANETİNİ YAP 🔮
+          CAST YOUR PROPHECY 🔮
         </Link>
       </main>
     </div>
